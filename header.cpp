@@ -16,8 +16,8 @@ using namespace std;
 typedef vector<int> vi;
 typedef vector<vi> matrix;
 typedef pair<int, int> ii;
-#define lop(i,a,b) for (i=a; i<=b; i++)
-#define rlop(i,a,b) for (i=b; i>=a; i--)
+#define lop(i,a,b) for (int i=a; i<=b; i++)
+#define rlop(i,a,b) for (int i=b; i>=a; i--)
 #define trav(c,i) for(typeof((c).begin()) i = (c).begin(); i != (c).end(); i++) 
 #define all(s) (s).begin(),(s).end()
 #define isthere(c,x) ((c).find(x) != (c).end()) 
