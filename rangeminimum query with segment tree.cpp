@@ -26,7 +26,7 @@ typedef pair<int, int> ii;
 #define sz(a) int((a).size()) 
 #define printv(v,i) lop(i,0,sz(v)-1)cout<<v[i]<<" ";
 
-/*initialize segment tree*/
+/*initialize segment tree, stree[i] denote the INDEX of minimum member from level[l] to level[u]*/
 void initialize(int start, vi& stree, vi& level, int l, int u) {
 	if (sz(stree) - 1 < start)stree.resize(start + 1);
 	if (l == u)stree[start] = l;
@@ -53,8 +53,8 @@ int rmq(int start, vi& stree, vi& level, int i, int j, int l, int u) {
 }
 
 int main() {
-	vi stree; /*segment tree*/
-	vi level; /*the array being searched*/
+	vi stree; /*segment tree,start from 1*/
+	vi level; /*the array being searched, start from 0*/
 	initialize(1, stree, level, 0, sz(level) - 1);
 	int i, j; /*queried segment [i,j]*/
 	rmq(1, stree, level, i, j, 0, sz(level) - 1);
