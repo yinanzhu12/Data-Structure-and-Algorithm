@@ -16,15 +16,17 @@ using namespace std;
 typedef vector<int> vi;
 typedef vector<vi> matrix;
 typedef pair<int, int> ii;
+#define sz(a) int((a).size()) 
 #define lop(i,a,b) for (int i=a; i<=b; i++)
+#define vlop(i,v) lop(i,0,sz(v)-1)
 #define rlop(i,a,b) for (int i=b; i>=a; i--)
-#define trav(c,i) for(typeof((c).begin()) i = (c).begin(); i != (c).end(); i++) 
+#define printv(i,v) vlop(i,v)cout<<v[i]<<" "
 #define all(s) (s).begin(),(s).end()
 #define isthere(c,x) ((c).find(x) != (c).end()) 
 #define cisthere(c,x) (find(all(c),x) != (c).end())
 #define pb push_back
 #define fill(s,v) memset(s,v,sizeof(s))
-#define sz(a) int((a).size()) 
+
 
 const long double pi = acos(-1.0);
 
