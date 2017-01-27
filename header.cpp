@@ -40,6 +40,11 @@ int main() {
 	outfile.open("output.txt");
 	cout.rdbuf(outfile.rdbuf());*/
 
+	/*compute the power of two up to nth power
+	vi poweroftwo(1,1)
+	lop(i,1,n)poweroftwo[i]=(poweroftwo[i-1]<<1);
+	*/
+
 	/*for multiple test case
 	int t;
 	cin >> t;
