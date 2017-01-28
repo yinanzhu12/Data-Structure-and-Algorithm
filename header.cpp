@@ -15,6 +15,7 @@ using namespace std;
 
 typedef vector<int> vi;
 typedef pair<int, int> ii;
+typedef vector<long> vl;
 #define matrix(a) vector< vector<a> >
 #define sz(a) int((a).size()) 
 #define lop(i,a,b) for (int i=a; i<=b; i++)
