@@ -18,6 +18,7 @@ typedef pair<int, int> ii;
 typedef vector<long> vl;
 #define matrix(a) vector< vector<a> >
 #define sz(a) int((a).size()) 
+#define last(a) a[sz(a)-1]
 #define lop(i,a,b) for (int i=a; i<=b; i++)
 #define vlop(i,v) lop(i,0,sz(v)-1)
 #define rlop(i,a,b) for (int i=b; i>=a; i--)
@@ -28,9 +29,8 @@ typedef vector<long> vl;
 #define pb push_back
 #define fill(s,v) memset(s,v,sizeof(s))
 
-
+const long mod=1000000007;
 const long double pi = acos(-1.0);
-
 
 int main() {
 	/* for reading .txt file
@@ -41,17 +41,16 @@ int main() {
 	outfile.open("output.txt");
 	cout.rdbuf(outfile.rdbuf());*/
 
-	/*compute the power of two up to nth power
-	vi poweroftwo(1,1)
-	lop(i,1,n)poweroftwo[i]=(poweroftwo[i-1]<<1);
-	*/
-
-	/*for multiple test case
-	int t;
-	cin >> t;
-	lop(testcase, 1, t) {
-
+	/*compute the power of two up to nth power mod 1000000007
+	vi poweroftwo(1,1);
+	lop(i,1,n){
+		long t=poweroftwo[i-1];
+		t=(t<<1)%mod;
+		poweroftwo[i]=t;
 	}*/
+	/*compute the powerof ten up to nth power
+	vi poweroften(1,1);
+	lop(i,1,n)poweroften[i]=poweroften[i-1]*10;*/
 
 	/*output with k digits after decimal
 	cout<<setprecision(k)<<fixed;
