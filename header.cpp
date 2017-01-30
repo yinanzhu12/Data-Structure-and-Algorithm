@@ -29,7 +29,7 @@ typedef vector<long> vl;
 #define pb push_back
 #define fill(s,v) memset(s,v,sizeof(s))
 
-const long mod=1000000007;
+const long M=1000000007;
 const long double pi = acos(-1.0);
 
 int main() {
@@ -41,16 +41,18 @@ int main() {
 	outfile.open("output.txt");
 	cout.rdbuf(outfile.rdbuf());*/
 
-	/*compute the power of two up to nth power mod 1000000007
-	vi poweroftwo(1,1);
-	lop(i,1,n){
-		long t=poweroftwo[i-1];
-		t=(t<<1)%mod;
-		poweroftwo[i]=t;
-	}*/
+	/*compute the power of two up to nth power mod M
+	vi poweroftwo(n+1,1);
+	lop(i,1,n)poweroftwo[i]=(long(poweroftwo[i-1])<<1)%M*/
+	
 	/*compute the powerof ten up to nth power
-	vi poweroften(1,1);
+	vi poweroften(n+1,1);
 	lop(i,1,n)poweroften[i]=poweroften[i-1]*10;*/
+	
+	/*compute factorio up to n
+	vi fact(n+1,1);
+	lop(i,1,n)fact[i]=long(fact[i-1])*long(i)%M
+	*/
 
 	/*output with k digits after decimal
 	cout<<setprecision(k)<<fixed;
