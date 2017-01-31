@@ -21,9 +21,13 @@ typedef vector<long long> vll;
 #define matrix(a) vector< vector<a> >
 #define sz(a) int((a).size()) 
 #define last(a) a[sz(a)-1]
+#define ite(v) v::iterator
 #define lop(i,a,b) for (int i=a; i<=b; i++)
 #define vlop(i,v) lop(i,0,sz(v)-1)
+#define vlop1(i,v) lop(i,1,sz(v)-1)
 #define rlop(i,a,b) for (int i=b; i>=a; i--)
+#define vrlop(i,v) rlop(i,0,sz(v)-1)
+#define vrlop1(i,v) rlop(i,1,sz(v)-1)
 #define printv(i,v) vlop(i,v)cout<<v[i]<<" "
 #define all(s) (s).begin(),(s).end()
 #define isthere(c,x) ((c).find(x) != (c).end()) 
@@ -51,7 +55,7 @@ int main() {
 	vi poweroften(n+1,1);
 	lop(i,1,n)poweroften[i]=poweroften[i-1]*10;*/
 	
-	/*compute factorio up to n
+	/*compute factorio up to n mod M
 	vi fact(n+1,1);
 	lop(i,1,n)fact[i]=long(fact[i-1])*long(i)%M
 	*/
