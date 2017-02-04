@@ -34,7 +34,7 @@ typedef vector<long long> vll;
 #define cisthere(c,x) (find(all(c),x) != (c).end())
 #define pb push_back
 #define fill(s,v) memset(s,v,sizeof(s))
-#define enter cout<<endl;
+#define enter cout<<endl
 
 const long M=1000000007;
 const long double pi = acos(-1.0);
