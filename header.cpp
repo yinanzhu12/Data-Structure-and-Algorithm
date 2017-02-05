@@ -17,6 +17,7 @@ typedef vector<int> vi;
 typedef pair<int, int> ii;
 typedef vector<long> vl;
 typedef long long ll;
+typedef pair<long long, long long> llll;
 typedef vector<long long> vll;
 #define matrix(a) vector< vector<a> >
 #define sz(a) int((a).size()) 
