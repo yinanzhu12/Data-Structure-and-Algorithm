@@ -41,29 +41,18 @@ const long M=1000000007;
 const long double pi = acos(-1.0);
 
 int main() {
-	/* for reading .txt file
+	/*for large input*/
+	ios::sync_with_stdio(false);
+	
+	/* for reading .txt file*/
 	ifstream infile;
 	ofstream outfile;
 	infile.open("input.txt");
 	cin.rdbuf(infile.rdbuf());
 	outfile.open("output.txt");
-	cout.rdbuf(outfile.rdbuf());*/
+	cout.rdbuf(outfile.rdbuf());
 
-	/*compute the power of two up to nth power mod M
-	vi poweroftwo(n+1,1);
-	lop(i,1,n)poweroftwo[i]=(long(poweroftwo[i-1])<<1)%M*/
-	
-	/*compute the powerof ten up to nth power
-	vi poweroften(n+1,1);
-	lop(i,1,n)poweroften[i]=poweroften[i-1]*10;*/
-	
-	/*compute factorio up to n mod M
-	vi fact(n+1,1);
-	lop(i,1,n)fact[i]=long(fact[i-1])*long(i)%M
-	*/
-
-	/*output with k digits after decimal
+	/*output with k digits after decimal*/
 	cout<<setprecision(k)<<fixed;
-	*/
 	return 0;
 }
