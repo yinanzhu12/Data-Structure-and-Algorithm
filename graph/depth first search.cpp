@@ -17,6 +17,7 @@ typedef vector<int> vi;
 typedef pair<int, int> ii;
 #define matrix(a) vector< vector<a> >
 #define lop(i,a,b) for (int i=a; i<=b; i++)
+#define vlop(i,v) lop(i,0,sz(v)-1)
 #define rlop(i,a,b) for (int i=b; i>=a; i--) 
 #define all(s) (s).begin(),(s).end()
 #define isthere(c,x) ((c).find(x) != (c).end()) 
@@ -40,16 +41,16 @@ public:
 	}
 };
 
-void dfs(vector< vector<edge> >& graph, vi& tour, int start, vi& enter, vi& level, vi& dtoroot, int currentlevel, vi& visited) {
-	visited[start] = 1;
-	tour.pb(start);
+void dfs(vector< vector<edge> >& graph, vi& tour, int root, vi& enter, vi& level, vi& dtoroot, int currentlevel, vi& visited) {
+	visited[root] = 1;
+	tour.pb(root);
 	level.pb(currentlevel);
-	enter[start] = sz(tour) - 1;
-	lop(i, 0, sz(graph[start]) - 1) {
-		if (!visited[graph[start][i].v]) {
-			dtoroot[graph[start][i].v] = dtoroot[start] + graph[start][i].w;
-			dps(graph, tour, graph[start][i].v, enter, level, dtoroot, currentlevel + 1, visited);
-			tour.pb(start);
+	enter[root] = sz(tour) - 1;
+	vlop(i,graph[root]) {
+		if (!visited[graph[root][i].v]) {
+			dtoroot[graph[root][i].v] = dtoroot[root] + graph[root][i].w;
+			dps(graph, tour, graph[root][i].v, enter, level, dtoroot, currentlevel + 1, visited);
+			tour.pb(root);
 			level.pb(currentlevel);
 		}
 	}
