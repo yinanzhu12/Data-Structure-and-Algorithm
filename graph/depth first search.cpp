@@ -40,7 +40,7 @@ public:
 	}
 };
 
-void dps(vector< vector<edge> >& graph, vi& tour, int start, vi& enter, vi& level, vi& dtoroot, int currentlevel, vi& visited) {
+void dfs(vector< vector<edge> >& graph, vi& tour, int start, vi& enter, vi& level, vi& dtoroot, int currentlevel, vi& visited) {
 	visited[start] = 1;
 	tour.pb(start);
 	level.pb(currentlevel);
@@ -73,6 +73,6 @@ int main() {
 	vi enter(n + 1); /*first time encounter node i in the euler tour*/
 	vi level; /*the level of the ith stop of Euler tour*/
 	vi visited(n + 1, 0);
-	dps(graph, tour, 1, enter, level, dtoroot, 0, visited);
+	dfs(graph, tour, 1, enter, level, dtoroot, 0, visited);
 	return 0;
 }
