@@ -41,15 +41,15 @@ public:
 	}
 };
 
-void dfs(vector< vector<edge> >& graph, vi& tour, int root, vi& enter, vi& level, vi& dtoroot, int currentlevel, vi& visited) {
+void dfs(vector< vector<edge> >& alist, vi& tour, int root, vi& enter, vi& level, vi& dtoroot, int currentlevel, vi& visited) {
 	visited[root] = 1;
 	tour.pb(root);
 	level.pb(currentlevel);
 	enter[root] = sz(tour) - 1;
-	vlop(i,graph[root]) {
-		if (!visited[graph[root][i].v]) {
-			dtoroot[graph[root][i].v] = dtoroot[root] + graph[root][i].w;
-			dps(graph, tour, graph[root][i].v, enter, level, dtoroot, currentlevel + 1, visited);
+	vlop(i,alist[root]) {
+		if (!visited[alist[root][i].v]) {
+			dtoroot[alist[root][i].v] = dtoroot[root] + alist[root][i].w;
+			dps(alist, tour, alist[root][i].v, enter, level, dtoroot, currentlevel + 1, visited);
 			tour.pb(root);
 			level.pb(currentlevel);
 		}
@@ -60,20 +60,20 @@ void dfs(vector< vector<edge> >& graph, vi& tour, int root, vi& enter, vi& level
 int main() {
 	int n;
 	cin >> n;
-	matrix(edge) graph(n + 1);
+	matrix(edge) alist(n + 1);
 	lop(i, 1, n - 1) {
 		int a;
 		int b;
 		int c;
 		cin >> a >> b >> c;
-		graph[a].pb(edge(b, c));
-		graph[b].pb(edge(b, c));
+		alist[a].pb(edge(b, c));
+		alist[b].pb(edge(b, c));
 	}
 	vi tour; /*Euler tour*/
 	vi dtoroot(n + 1, 0); /*distance to root from node i, for weighted diagram*/
 	vi enter(n + 1); /*first time encounter node i in the euler tour*/
 	vi level; /*the level of the ith stop of Euler tour*/
 	vi visited(n + 1, 0);
-	dfs(graph, tour, 1, enter, level, dtoroot, 0, visited);
+	dfs(alist, tour, 1, enter, level, dtoroot, 0, visited);
 	return 0;
 }
