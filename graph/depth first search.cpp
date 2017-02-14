@@ -41,7 +41,7 @@ public:
 	}
 };
 
-void dfs(vector< vector<edge> >& alist, vi& tour, int root, vi& enter, vi& level, vi& dtoroot, int currentlevel, vi& visited) {
+void dfs(matrix(edge)& alist, vi& tour, int root, vi& enter, vi& level, vi& dtoroot, int currentlevel, vi& visited) {
 	visited[root] = 1;
 	tour.pb(root);
 	level.pb(currentlevel);
