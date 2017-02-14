@@ -49,7 +49,7 @@ void dfs(vector< vector<edge> >& alist, vi& tour, int root, vi& enter, vi& level
 	vlop(i,alist[root]) {
 		if (!visited[alist[root][i].v]) {
 			dtoroot[alist[root][i].v] = dtoroot[root] + alist[root][i].w;
-			dps(alist, tour, alist[root][i].v, enter, level, dtoroot, currentlevel + 1, visited);
+			dfs(alist, tour, alist[root][i].v, enter, level, dtoroot, currentlevel + 1, visited);
 			tour.pb(root);
 			level.pb(currentlevel);
 		}
