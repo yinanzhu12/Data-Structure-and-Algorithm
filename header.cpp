@@ -10,6 +10,7 @@
 #include <iostream>
 #include <algorithm>
 #include <iomanip>
+#include <numeric>
 
 using namespace std;
 
