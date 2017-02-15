@@ -38,7 +38,7 @@ typedef vector<long long> vll;
 #define enter cout<<endl
 
 void failure(vi& f, string& s) {
-	lop(i, 0, sz(s) - 1) {
+	lop(i, 1, sz(s) - 1) {
 		int t = last(f);
 		while (true) {
 			if (s[i] == s[t]) {
@@ -58,7 +58,7 @@ void failure(vi& f, string& s) {
 
 int main(){
 	string s;
-	vi f(sz(s),0);
+	vi f={0};
 	/*compute failure function*/
 	failure(f, s);
 }
