@@ -49,7 +49,7 @@ void failure(vi& f, string& s) {
 				f.pb(0);
 				break;
 			}
-			else t = f[t];
+			else t = f[t-1];
 		}
 
 	}
