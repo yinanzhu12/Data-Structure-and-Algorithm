@@ -13,7 +13,7 @@ long long euclidean(long long a, long long b) {
 		q = r[i - 1] / r[i];
 		s.push_back(s[i - 1] - s[i] * q);
 		t.push_back(t[i - 1] - t[i] * q);
-		if (r[i + 1] == 0)break;
+		if (!r.back())break;
 	}
 	if (s[i]<0)s[i] += mod;
 	if (s[i] >= mod)s[i] -= mod;
