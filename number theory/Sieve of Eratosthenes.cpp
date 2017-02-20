@@ -1,9 +1,12 @@
 #include <vector>;
 
 
-int nextprime(vector<int>& sieve, int previous) {
+int nextprime(vi& sieve, int previous) {
 	int next = previous + 1;
-	while (sieve[next] == 0)next++;
+	while (next <= sz(sieve) - 1) {
+		if (sieve[next])break;
+		next++;
+	}
 	int nextmultiple = next * 2;
 	while (nextmultiple <= sz(sieve) - 1) {
 		sieve[nextmultiple] = 0;
@@ -13,9 +16,11 @@ int nextprime(vector<int>& sieve, int previous) {
 }
 int main() {
 	int inf=10000;
-	vector<int> sieve(inf + 1, 1);
+	vi sieve(inf + 1, 1);
+	/*define 1 as non-prime*/
 	sieve[1] = 0;
 	int newprime = 1;
+	/*i is prime is sieve[i]=1*/
 	while (newprime <= inf) {
 		newprime = nextprime(sieve, newprime);
 	}
