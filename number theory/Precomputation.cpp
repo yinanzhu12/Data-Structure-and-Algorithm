@@ -36,21 +36,50 @@ typedef vector<long long> vll;
 #define pb push_back
 #define enter cout<<endl
 
-const long double pi = acos(-1.0);
+/*max number to compute series up to*/
+const long long inf;
+
+/*number to mod big number, if needed*/
+const long long M;
+
+ll euclidean(ll a, ll b) {
+	vll r = { a,b };
+	vll s = { 1,0 };
+	int i;
+	ll q;
+	while (true) {
+		i = r.size() - 1;
+		r.push_back(r[i - 1] % r[i]);
+		q = r[i - 1] / r[i];
+		s.push_back(s[i - 1] - s[i] * q);
+		if (!r.back())break;
+	}
+	if (s[i]<0)s[i] += b;
+	if (s[i] >= b)s[i] -= b;
+	return s[i];
+}
+void factorio(vll& fact,vll& invfact) {
+	fact.resize(inf + 1, 1);
+	invfact.resize(inf + 1, 1);
+	vlop1(i, fact) {
+		fact[i] = fact[i - 1] * i%M;
+		invfact[i] = euclidean(fact[i], M);
+	}
+	return;
+}
+
+void powerof(int a, vll& power) {
+	power.resize(inf + 1, 1);
+	vlop1(i, power)power[i] = power[i - 1] * a%M;
+}
 
 int main() {
-	/*for large input*/
-	ios::sync_with_stdio(false);
-	
-	/* for reading .txt file*/
-	ifstream infile;
-	ofstream outfile;
-	infile.open("input.txt");
-	cin.rdbuf(infile.rdbuf());
-	outfile.open("output.txt");
-	cout.rdbuf(outfile.rdbuf());
+	/*fact[i]=i!%M, invfact[i]=(i!)^-1%M*/
+	vll fact, invfact;
+	factorio(fact, invfact);
 
-	/*output with k digits after decimal*/
-	cout<<setprecision(k)<<fixed;
-	return 0;
+	/*power[i]=a^i%M*/
+	vll power;
+	int a;
+	powerof(a, power);
 }
