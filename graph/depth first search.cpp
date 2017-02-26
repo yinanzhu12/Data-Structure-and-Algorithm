@@ -41,15 +41,15 @@ public:
 	}
 };
 
-void dfs(matrix(edge)& alist, vi& tour, int root, vi& enter, vi& level, vi& dtoroot, int currentlevel, vi& visited) {
+void dfs(matrix(edge)& alist, vi& tour, int root, vi& entry, vi& level, vi& dtoroot, int currentlevel, vi& visited) {
 	visited[root] = 1;
 	tour.pb(root);
 	level.pb(currentlevel);
-	enter[root] = sz(tour) - 1;
+	entry[root] = sz(tour) - 1;
 	vlop(i,alist[root]) {
 		if (!visited[alist[root][i].v]) {
 			dtoroot[alist[root][i].v] = dtoroot[root] + alist[root][i].w;
-			dfs(alist, tour, alist[root][i].v, enter, level, dtoroot, currentlevel + 1, visited);
+			dfs(alist, tour, alist[root][i].v, entry, level, dtoroot, currentlevel + 1, visited);
 			tour.pb(root);
 			level.pb(currentlevel);
 		}
@@ -71,7 +71,7 @@ int main() {
 	}
 	vi tour; /*Euler tour*/
 	vi dtoroot(n + 1, 0); /*distance to root from node i, for weighted diagram*/
-	vi enter(n + 1); /*first time encounter node i in the euler tour*/
+	vi entry(n + 1); /*first time encounter node i in the euler tour*/
 	vi level; /*the level of the ith stop of Euler tour*/
 	vi visited(n + 1, 0);
 	dfs(alist, tour, 1, enter, level, dtoroot, 0, visited);
