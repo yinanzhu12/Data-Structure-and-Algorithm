@@ -37,6 +37,9 @@ typedef vector<long long> vll;
 #define enter cout<<endl
 
 const long double pi = acos(-1.0);
+string alpha="abcdefghijklmnopqrstuvwxyz";
+string Alpha="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+string digit="0123456789";
 
 int main() {
 	/*for large input*/
