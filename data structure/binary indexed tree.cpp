@@ -57,13 +57,16 @@ void updatetree(int i, int v, vi& bitree) {
 
 /*cum=true if the frequency is cumulative*/
 void initialize(vi& bitree, vi& freq,bool cum) {
-	bitree.resize(sz(freq));
+	bitree.resize(sz(freq),0);
 	if (cum) {
-		update(0, freq[0], bitree);
-		vlop1(i, freq)update(i, freq[i] - freq[i - 1], bitree);
+		vlop1(i, freq){
+			if(freq[i]-freq[i-1])update(i, freq[i] - freq[i - 1], bitree);
+		}
 		return;
 	}
-	vlop(i, freq) update(i, freq[i], bitree);
+	vlop(i, freq){
+	        if(freq[i])update(i, freq[i], bitree);
+	}
 	return;
 }
 
