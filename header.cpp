@@ -22,7 +22,6 @@ typedef pair<long long, long long> llll;
 typedef vector<long long> vll;
 #define matrix(a) vector< vector<a> >
 #define sz(a) int((a).size()) 
-#define ite(v) v::iterator
 #define lop(i,a,b) for (int i=a; i<=b; i++)
 #define vlop(i,v) lop(i,0,sz(v)-1)
 #define vlop1(i,v) lop(i,1,sz(v)-1)
