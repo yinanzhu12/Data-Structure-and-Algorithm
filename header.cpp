@@ -33,7 +33,7 @@ typedef vector<long long> vll;
 #define isthere(c,x) ((c).find(x) != (c).end()) 
 #define cisthere(c,x) (find(all(c),x) != (c).end())
 #define pb push_back
-#define enter cout<<endl
+#define enter cout<<'\n'
 
 const long double pi = acos(-1.0);
 string alp="abcdefghijklmnopqrstuvwxyz";
