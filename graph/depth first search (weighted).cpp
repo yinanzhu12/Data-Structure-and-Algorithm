@@ -35,14 +35,28 @@ typedef vector<long long> vll;
 #define pb push_back
 #define enter cout<<'\n'
 
-void dfs(matrix(int)& alist, vi& tour, int root, vi& entry, vi& leave, vi& dtoroot, vi& visited) {
+class edge {
+public:
+	int v;
+	int w;
+	edge(int a, int b) {
+		v = a;
+		w = b;
+	}
+	edge() {
+		v = 0;
+		w = 0;
+	}
+};
+
+void dfs(matrix(edge)& alist, vi& tour, int root, vi& entry, vi& leave, vi& dtoroot, vi& visited) {
 	visited[root] = 1;
 	tour.pb(root);
 	entry[root] = sz(tour) - 1;
-	vlop(i, alist[root]) {
-		if (!visited[alist[root][i]]) {
-			dtoroot[alist[root][i]] = dtoroot[root] + 1;
-			dfs(alist, tour, alist[root][i], entry, leave, dtoroot, currentlevel + 1, visited);
+	vlop(i,alist[root]) {
+		if (!visited[alist[root][i].v]) {
+			dtoroot[alist[root][i].v] = dtoroot[root] + alist[root][i].w;
+			dfs(alist, tour, alist[root][i].v, entry, leave, dtoroot, currentlevel + 1, visited);
 			tour.pb(root);
 			level.pb(currentlevel);
 		}
@@ -54,12 +68,12 @@ void dfs(matrix(int)& alist, vi& tour, int root, vi& entry, vi& leave, vi& dtoro
 int main() {
 	int n;
 	cin >> n;
-	matrix(int) alist(n + 1);
+	matrix(edge) alist(n + 1);
 	lop(i, 1, n - 1) {
-		int a,b;
+		int a,b,c;
 		cin >> a >> b >> c;
-		alist[a].pb(b);
-		alist[b].pb(a);
+		alist[a].pb(edge(b, c));
+		alist[b].pb(edge(a, c));
 	}
 	vi tour; /*Euler tour*/
 	vi dtoroot(n + 1, 0); /*distance to root from node i*/
