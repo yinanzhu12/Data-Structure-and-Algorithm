@@ -16,10 +16,13 @@ using namespace std;
 
 typedef vector<int> vi;
 typedef pair<int, int> ii;
-typedef vector<long> vl;
 typedef long long ll;
-typedef pair<long long, long long> llll;
+typedef pair<long long, long long> l4;
 typedef vector<long long> vll;
+typedef double db;
+typedef vector<double> vdb;
+typedef set<int> si;
+typedef set<long long> sll;
 #define matrix(a) vector< vector<a> >
 #define sz(a) int((a).size()) 
 #define lop(i,a,b) for (int i=a; i<=b; i++)
@@ -30,8 +33,7 @@ typedef vector<long long> vll;
 #define vrlop1(i,v) rlop(i,1,sz(v)-1)
 #define printv(i,v) vlop(i,v)cout<<v[i]<<" "
 #define all(s) (s).begin(),(s).end()
-#define isthere(c,x) ((c).find(x) != (c).end()) 
-#define cisthere(c,x) (find(all(c),x) != (c).end())
+#define isthere(c,x) ((c).find(x) != (c).end())
 #define pb push_back
 #define enter cout<<'\n'
 
