@@ -74,4 +74,8 @@ int main(){
 	vlop(i,f) alist[f[i]].pb(i+1);
 	/*subtreesum[i]+1 will be the time s[0]...s[i-1] appears in s as a substring*/
 	dfs(alist,0,count,subtreesum);
+	/*this procedure find all the t such that (s[0]...s[t-1]) can be realized as a suffix ending at s[u], 
+	the initial value of t=u+1 should be INCLUDED*/
+        int u, t=u+1;
+	while(t)t=f[t-1];
 }
