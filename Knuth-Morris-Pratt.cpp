@@ -21,8 +21,6 @@ typedef pair<long long, long long> llll;
 typedef vector<long long> vll;
 #define matrix(a) vector< vector<a> >
 #define sz(a) int((a).size()) 
-#define last(a) a[sz(a)-1]
-#define ite(v) v::iterator
 #define lop(i,a,b) for (int i=a; i<=b; i++)
 #define vlop(i,v) lop(i,0,sz(v)-1)
 #define vlop1(i,v) lop(i,1,sz(v)-1)
@@ -32,21 +30,19 @@ typedef vector<long long> vll;
 #define printv(i,v) vlop(i,v)cout<<v[i]<<" "
 #define all(s) (s).begin(),(s).end()
 #define isthere(c,x) ((c).find(x) != (c).end()) 
-#define cisthere(c,x) (find(all(c),x) != (c).end())
 #define pb push_back
-#define fill(s,v) memset(s,v,sizeof(s))
-#define enter cout<<endl
+#define enter cout<<'\n'
 
 void failure(vi& f, string& s) {
-	lop(i, 1, sz(s) - 1) {
-		int t = last(f);
+	vlop1(i, s) {
+		int t = f[i-1];
 		while (true) {
 			if (s[i] == s[t]) {
-				f.pb(t + 1);
+				f[i]=t+1;
 				break;
 		}
 			else if(!t){
-				f.pb(0);
+				f[i]=0;
 				break;
 			}
 			else t = f[t-1];
@@ -56,9 +52,26 @@ void failure(vi& f, string& s) {
 	return;
 }
 
+void dfs(matrix(int)& alist, int root, vi& count, vi& subtreesum) {
+	vlop(i, alist[root]) {
+		dfs(alist, alist[root][i], count,subtreesum);
+		subtreesum[root]+=subtreesum[alist[root][i]];
+	}
+	subtreesum[root]+=count[root];
+	return;
+}
+
 int main(){
 	string s;
-	vi f={0};
-	/*compute failure function*/
+	vi f(sz(s));
+	f[0]=0;
+	/*compute failure function, s start from index 0
+	f[i] is the maximum LENGTH the suffix ending in s[i] can be realized as prefix, EXCEPT the string (s[0]...s[i]) itself*/
 	failure(f, s);
+	vlop(i,f)count[f[i]]++;
+	/*build a DIRECTED tree rooted at 0, with vertice 0...sz(s), edge f[i]->i*/
+	matrix(int) alist(sz(s)+1);
+	vlop(i,f) alist[f[i]].pb(i+1);
+	/*subtreesum[i]+1 will be the time s[0]...s[i-1] appears in s as a substring*/
+	dfs(alist,0,count,subtreesum);
 }
