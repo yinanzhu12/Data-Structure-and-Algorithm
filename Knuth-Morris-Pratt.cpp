@@ -61,6 +61,15 @@ void dfs(matrix(int)& alist, int root, vi& count, vi& subtreesum) {
 	return;
 }
 
+void findprefix(int l,vi& f, vi& result){
+	int t=l+1;
+	while(t){
+		result.pb(t);
+		t=f[t-1];
+	}
+	return;
+}
+
 int main(){
 	string s;
 	vi f(sz(s));
@@ -74,8 +83,7 @@ int main(){
 	vlop(i,f) alist[f[i]].pb(i+1);
 	/*subtreesum[i]+1 will be the time s[0]...s[i-1] appears in s as a substring*/
 	dfs(alist,0,count,subtreesum);
-	/*this procedure find all the t such that (s[0]...s[t-1]) can be realized as a suffix ending at s[u], 
-	the initial value of t=u+1 should be INCLUDED*/
-        int u, t=u+1;
-	while(t)t=f[t-1];
+        vi result;
+	/*this procedure find all the t such that (s[0]...s[t-1]) can be realized as a suffix ending at s[l]*/
+	findprefix(l,f,result);
 }
