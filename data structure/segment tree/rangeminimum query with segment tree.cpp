@@ -32,6 +32,7 @@ void initialize(int start, vi& stree, vi& level, int l, int u) {
 	else {
 		initialize(2 * start, stree, level, l, (u + l) / 2);
 		initialize(2 * start + 1, stree, level, (u + l) / 2 + 1, u);
+		/*change < to > for maximum querry*/
 		if (level[stree[start * 2]] < level[stree[start * 2 + 1]])stree[start] = stree[start * 2];
 		else stree[start] = stree[start * 2 + 1];
 	}
@@ -46,6 +47,7 @@ int rmq(int start, vi& stree, vi& level, int i, int j, int l, int u) {
 	int t2 = rmq(2 * start + 1, stree, level, i, j, (u + l) / 2 + 1, u);
 	if (t1 == -1)return t2;
 	if (t2 == -1)return t1;
+	/*change < to > for maximum querry*/
 	if (level[t1] < level[t2])return t1;
 	return t2;
 }
@@ -57,6 +59,7 @@ void updatetree(int start, vi& stree, vi& level, int index, int value, int l, in
 	}
 	if (index <= (l + u) / 2)updatetree(2 * start, stree, level, index, value, l, (l + u) / 2);
 	else updatetree(2 * start + 1, stree, level, index, value, (l + u) / 2 + 1, u);
+	/*change < to > for maximum querry*/
 	if (level[stree[start * 2]] < level[stree[start * 2 + 1]])stree[start] = stree[start * 2];
 	else stree[start] = stree[start * 2 + 1];
 	return;
