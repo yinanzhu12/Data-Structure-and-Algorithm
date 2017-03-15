@@ -40,19 +40,16 @@ ll euclidean(ll a, ll b) {
 	/*To compute gcd(a, b), return r[i].
 	To compute 1/a mod b provided gcd(a,b)=1, return s[i]
 	To compute solution to a*s+b*t=gcd(a,b), return s[i] and t[i]*/
-	vll r = { a,b };
-	vll s = { 1,0 };
-	vll t = { 0,1 };
-	int i;
-	long long q;
+	vll r = { a,b }, s = { 1,0 }, t = { 0,1 };
 	while (true) {
-		i = r.size() - 1;
-		r.push_back(r[i - 1] % r[i]);
-		q = r[i - 1] / r[i];
-		s.push_back(s[i - 1] - s[i] * q);
-		t.push_back(t[i - 1] - t[i] * q);
+		int i =sz(r) - 1;
+		r.pb(r[i - 1] % r[i]);
+		ll q = r[i - 1] / r[i];
+		s.pb(s[i - 1] - s[i] * q);
+		t.pb(t[i - 1] - t[i] * q);
 		if (!r.back())break;
 	}
+	int i=sz(r)-2;
 	if (s[i]<0)s[i] += b;
 	if (s[i] >= b)s[i] -= b;
 	return s[i];
