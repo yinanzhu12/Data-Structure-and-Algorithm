@@ -22,7 +22,6 @@ typedef pair<int, int> ii;
 #define isthere(c,x) ((c).find(x) != (c).end()) 
 #define cisthere(c,x) (find(all(c),x) != (c).end())
 #define pb push_back
-#define fill(s,v) memset(s,v,sizeof(s))
 #define sz(a) int((a).size()) 
 #define printv(v,i) lop(i,0,sz(v)-1)cout<<v[i]<<" ";
 
