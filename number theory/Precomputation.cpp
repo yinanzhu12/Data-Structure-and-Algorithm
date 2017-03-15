@@ -45,15 +45,14 @@ const long long M;
 ll euclidean(ll a, ll b) {
 	vll r = { a,b };
 	vll s = { 1,0 };
-	int i;
-	ll q;
 	while (true) {
-		i = r.size() - 1;
+		int i = sz(r) - 1;
 		r.push_back(r[i - 1] % r[i]);
-		q = r[i - 1] / r[i];
+		ll q = r[i - 1] / r[i];
 		s.push_back(s[i - 1] - s[i] * q);
 		if (!r.back())break;
 	}
+	int i=sz(r)-2;
 	if (s[i]<0)s[i] += b;
 	if (s[i] >= b)s[i] -= b;
 	return s[i];
@@ -71,6 +70,7 @@ void factorio(vll& fact,vll& invfact) {
 void powerof(int a, vll& power) {
 	power.resize(inf + 1, 1);
 	vlop1(i, power)power[i] = power[i - 1] * a%M;
+	return;
 }
 
 int main() {
