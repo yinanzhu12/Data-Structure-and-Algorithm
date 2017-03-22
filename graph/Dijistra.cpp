@@ -37,8 +37,9 @@ typedef set<long long> sll;
 #define pb push_back
 #define enter cout<<'\n'
 
-/*must be greater than any edge's weight*/
-const int inf = 100001;
+
+/*must be greater than the SUM of all edges*/
+const int inf = 1000000000;
 
 class edge {
 public:
@@ -61,6 +62,7 @@ void initialize(int start, vi& stree, vi& level, int l, int u) {
 	}
 	return;
 }
+
 void updatetree(int start, vi& stree, vi& level, int index, int value, int l, int u) {
 	if (l == u) {
 		level[index] = value;
@@ -73,39 +75,38 @@ void updatetree(int start, vi& stree, vi& level, int index, int value, int l, in
 	return;
 }
 
-void prim(matrix(edge)& alist,matrix(edge)& tree,int root) {
+void djs(matrix(edge)& alist,vi& distance,int source) {
 	int n = sz(alist) - 1;
-	vi intree(n + 1, 0), key(n + 1, inf), stree,link(n+1);
-	key[root] = 0;
+	vi visited(n + 1, 0), stree, key(n + 1,inf);
+	key[source] = 0;
 	initialize(1, stree, key, 0, n);
 	lop(i, 1, n) {
 		int node = stree[1];
+		if (key[node] == inf)break;
+		distance[node] = key[node];
 		updatetree(1, stree, key, node, inf, 0, n);
-		intree[node] = 1;
-		tree[node].pb(edge(link[node], key[node]));
-		tree[link[node]].pb(edge(node,key[node]));
+		visited[node] = 1;
 		vlop(j, alist[node]) {
-			if (!intree[alist[node][j].v] && key[alist[node][j].v] > alist[node][j].w) {
-				updatetree(1, stree, key, alist[node][j].v, alist[node][j].w, 0, n);
-				link[alist[node][j].v] = node;
-			}
+			if (!visited[alist[node][j].v] && key[alist[node][j].v] > distance[node]+alist[node][j].w)updatetree(1, stree, key, alist[node][j].v, alist[node][j].w+distance[node], 0, n);
 		}
 	}
 	return;
 }
 
-/*use Prim algorithm to find the MST rooted in "root" of a weighted undirected connected graph 
-with n nodes (indexed from 1) and m edges, store the tree in another adjacency list*/
+/*return the shortest distance from source to other nodes 
+in an DIRECTED weighted graph with n nodes (indexed from 1) and m edges
+if nodes cannot reach distance[node]=-1*/
 int main() {
-	int n,m;
-	cin >> n>>m;
-	matrix(edge) alist(n + 1),tree(n+1);
-	lop(i,1,m) {
+	int n, m;
+	cin >> n >> m;
+	matrix(edge) alist(n + 1);
+	lop(j,1,m) {
 		int a, b, c;
 		cin >> a >> b >> c;
 		alist[a].push_back(edge(b, c));
-		alist[b].push_back(edge(a, c));
 	}
-	prim(alist, tree,1);
+	vi distance(n+1,-1);
+	int source;
+	djs(alist, distance,source);
 	return 0;
 }
