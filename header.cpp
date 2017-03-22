@@ -32,6 +32,7 @@ typedef set<long long> sll;
 #define vrlop(i,v) rlop(i,0,sz(v)-1)
 #define vrlop1(i,v) rlop(i,1,sz(v)-1)
 #define printv(i,v) vlop(i,v)cout<<v[i]<<" "
+#define printv1(i,v) vlop1(i,v)cout<<v[i]<<" "
 #define all(s) (s).begin(),(s).end()
 #define isthere(c,x) ((c).find(x) != (c).end())
 #define pb push_back
