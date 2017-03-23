@@ -21,6 +21,7 @@ typedef pair<long long, long long> l4;
 typedef vector<long long> vll;
 typedef double db;
 typedef vector<double> vdb;
+typedef pair<double, double> dd;
 typedef set<int> si;
 typedef set<long long> sll;
 #define matrix(a) vector< vector<a> >
