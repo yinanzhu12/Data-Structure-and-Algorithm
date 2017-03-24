@@ -20,7 +20,7 @@ int main() {
 	/*define 1 as non-prime*/
 	sieve[1] = 0;
 	int newprime = 1;
-	/*i is prime is sieve[i]=1*/
+	/*i is prime iff sieve[i]=1*/
 	while (newprime <= inf) newprime = nextprime(sieve, newprime);
 	return 0;
 }
