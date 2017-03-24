@@ -47,7 +47,7 @@ void initialize(deque<ll>& ascendmin, vll& array, int start, int end) {
 
 void moveright(deque<ll>& ascendmin, vll& array, int& cleft, int& cright) {
 	while (!ascendmin.empty()) {
-		if (ascendmin.back()>-array[cright + 1])ascendmin.pop_back();
+		if (ascendmin.back()>array[cright + 1])ascendmin.pop_back();
 		else break;
 	}
 	ascendmin.push_back(array[cright + 1]);
