@@ -21,8 +21,6 @@ int main() {
 	sieve[1] = 0;
 	int newprime = 1;
 	/*i is prime is sieve[i]=1*/
-	while (newprime <= inf) {
-		newprime = nextprime(sieve, newprime);
-	}
+	while (newprime <= inf) newprime = nextprime(sieve, newprime);
 	return 0;
 }
