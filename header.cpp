@@ -58,5 +58,8 @@ int main() {
 
 	/*output with k digits after decimal*/
 	cout<<setprecision(k)<<fixed;
+	
+	/*generate random number in [b,a+b-1]*/
+	int t=rand()%a+b;
 	return 0;
 }
