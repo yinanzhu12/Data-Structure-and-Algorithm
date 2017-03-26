@@ -36,7 +36,7 @@ typedef vector<long long> vll;
 #define enter cout<<'\n'
 
 void bfs(matrix(int)& alist, vi& parent, vi& distance,int root) {
-	vi visited(parent.size(), 0);
+	vi visited(sz(alist), 0);
 	queue<int> q;
 	q.push(root);
 	visited[root] = 1;
