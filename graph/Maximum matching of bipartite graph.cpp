@@ -39,8 +39,6 @@ typedef set<long long> sll;
 #define pb push_back
 #define enter cout<<'\n'
 
-const int inf; /*must be greater than the maximum capcity of any edge*/
-
 int augmentpath(matrix(int)& amatrix, int source, int sink) {
 	vi parent(sz(amatrix), -1), visited(sz(amatrix), 0);
 	queue<int> q;
@@ -61,7 +59,7 @@ int augmentpath(matrix(int)& amatrix, int source, int sink) {
 		if (foundsink)break;
 	}
 	if (!foundsink)return 0;
-	int node = sink, aug = inf;
+	int node = sink, aug = 2;
 	while (parent[node] != -1) {
 		aug = min(amatrix[parent[node]][node], aug);
 		node = parent[node];
@@ -85,11 +83,52 @@ int maxflow(matrix(int)& amatrix, int source, int sink) {
 	return mf;
 }
 
-/*compute the maximum flow of a directed weighted graph with Ford-Fulkerson algorithm*/
+/*compute the maximum matching and minimum edge cover graph with Ford-Fulkerson algorithm*/
 int main() {
-	matrix(int) amatrix(n + 1, vi(n + 1)); /*adjacency list of the graph, index start from 1*/
+	matrix(int) amatrix(n + m + 3, vi(n + m + 3)); /*adjacency list of graph where all edges are from left to right with capcity one.
+	Node 1,...n on left side, n+1,...m on right side. n+m+1 is supersource, n+m+2 is supersink*/
+	lop(i, 1, n)amatrix[n + m + 1][i] = 1;
+	lop(i, n + 1, m + n)amatrix[i][n + m + 2] = 1;
 	matrix(int) residue = amatrix;
-	int source, sink;
-	int mf=maxflow(residue, source, sink); /*return the maximum flow (also the capcity of the mininum cut),
-    residue will become the adjacency matrix residue network*/
+	int maxmatching=maxflow(residue, n + 1 + m, n + m + 2);
+	vi covered(n + m + 1, 0);
+	lop(i, n+1, n+m) {
+		lop(j, 1, n) {
+			if (residue[i][j]) {
+				covered[i] = 1;
+				covered[j] = 1;
+			}
+		}
+	}
+	/*compute the capcity of maximum matching*/
+	vlop1(i, covered)maxmatching -= covered[i];
+	/*get the capacity of minimum edge cover*/
+	int miniedgecover = maxmatching;
+	vlop1(i, covered) {
+		if (!covered[i]) {
+			if (i <= n) {
+				lop(j, n + 1, n + m) {
+					if (residue[i][j]) {
+						residue[i][j] = 0;
+						residue[j][i] = 1;
+						covered[i] = 1;
+						covered[j] = 1;
+						miniedgecover--;
+						break;
+					}
+				}
+			}
+			else {
+				lop(j, 1, n) {
+					if (residue[j][i]) {
+						resdiue[j][i] = 0;
+						residue[i][j] = 1;
+						covered[i] = 1;
+						miniedgecover--;
+						break;
+					}
+				}
+			}
+		}
+	}
 }
