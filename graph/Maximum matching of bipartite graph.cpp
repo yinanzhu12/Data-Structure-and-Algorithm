@@ -90,7 +90,8 @@ int main() {
 	lop(i, 1, n)amatrix[n + m + 1][i] = 1;
 	lop(i, n + 1, m + n)amatrix[i][n + m + 2] = 1;
 	matrix(int) residue = amatrix;
-	int maxmatching=maxflow(residue, n + 1 + m, n + m + 2);
+	int maxmatching=maxflow(residue, n + 1 + m, n + m + 2);/*maxmatching is the capacity of the maximum matchin
+    residue will be the residue network flow*/
 	vi covered(n + m + 1, 0);
 	lop(i, n+1, n+m) {
 		lop(j, 1, n) {
@@ -100,8 +101,6 @@ int main() {
 			}
 		}
 	}
-	/*compute the capcity of maximum matching*/
-	vlop1(i, covered)maxmatching -= covered[i];
 	/*get the capacity of minimum edge cover*/
 	int miniedgecover = maxmatching;
 	vlop1(i, covered) {
@@ -113,7 +112,7 @@ int main() {
 						residue[j][i] = 1;
 						covered[i] = 1;
 						covered[j] = 1;
-						miniedgecover--;
+						miniedgecover++;
 						break;
 					}
 				}
@@ -121,14 +120,15 @@ int main() {
 			else {
 				lop(j, 1, n) {
 					if (residue[j][i]) {
-						resdiue[j][i] = 0;
+						residue[j][i] = 0;
 						residue[i][j] = 1;
 						covered[i] = 1;
-						miniedgecover--;
+						miniedgecover++;
 						break;
 					}
 				}
 			}
 		}
 	}
+	return 0;
 }
