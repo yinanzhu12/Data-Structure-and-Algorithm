@@ -35,7 +35,6 @@ typedef set<long long> sll;
 #define printv(i,v) vlop(i,v)cout<<v[i]<<" "
 #define printv1(i,v) vlop1(i,v)cout<<v[i]<<" "
 #define all(s) (s).begin(),(s).end()
-#define isthere(c,x) ((c).find(x) != (c).end())
 #define pb push_back
 #define enter cout<<'\n'
 
