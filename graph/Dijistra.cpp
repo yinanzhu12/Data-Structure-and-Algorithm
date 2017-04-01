@@ -76,12 +76,12 @@ void updatetree(int start, vi& stree, vi& level, int index, int value, int l, in
 }
 
 void djs(matrix(edge)& alist,vi& distance,int source) {
-	int n = sz(alist) - 1;
+	int n = sz(alist) - 1,node;
 	vi visited(n + 1, 0), stree, key(n + 1,inf);
 	key[source] = 0;
 	initialize(1, stree, key, 0, n);
 	lop(i, 1, n) {
-		int node = stree[1];
+		node = stree[1];
 		if (key[node] == inf)break;
 		distance[node] = key[node];
 		updatetree(1, stree, key, node, inf, 0, n);
@@ -93,9 +93,27 @@ void djs(matrix(edge)& alist,vi& distance,int source) {
 	return;
 }
 
-/*return the shortest distance from source to other nodes 
-in an DIRECTED weighted graph with n nodes (indexed from 1) and m edges
-if nodes cannot reach distance[node]=-1*/
+int singledjs(matrix(edge)& alist,int source,int dest) {
+	int n = sz(alist) - 1,arrive, node;
+	vi visited(n + 1, 0), stree, key(n + 1,inf);
+	key[source] = 0;
+	initialize(1, stree, key, 0, n);
+	lop(i, 1, n) {
+		node = stree[1];
+		if (key[node] == inf)break;
+		if(node==dest)return key[node];
+		arrive = key[node];
+		updatetree(1, stree, key, node, inf, 0, n);
+		visited[node] = 1;
+		vlop(j, alist[node]) {
+			if (!visited[alist[node][j].v] && key[alist[node][j].v] > arrive+alist[node][j].w)updatetree(1, stree, key, alist[node][j].v, alist[node][j].w+arrive, 0, n);
+		}
+	}
+	return -1;
+}
+
+/*compute the shortest distance from source to other nodes 
+in an DIRECTED weighted graph with nodes 1,...,n and m edges*/
 int main() {
 	int n, m;
 	cin >> n >> m;
@@ -106,7 +124,8 @@ int main() {
 		alist[a].push_back(edge(b, c));
 	}
 	vi distance(n+1,-1);
-	int source;
-	djs(alist, distance,source);
+	int source,dest;
+	djs(alist, distance,source);/*distance[i] is the length of shortest paht from source to i. -1 if not reachable*/
+	singledjs(alist,source,dest);/*return only the shortest path to a single destination, if not reachable, return -1*/
 	return 0;
 }
