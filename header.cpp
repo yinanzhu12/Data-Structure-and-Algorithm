@@ -39,6 +39,9 @@ typedef set<long long> sll;
 #define all(s) (s).begin(),(s).end()
 #define pb push_back
 #define enter cout<<'\n'
+#define lb(i,v) int(lower_bound(all(v),i)-v.begin())
+#define ub(i,v) int(upper_bound(all(v),i)-v.begin())
+
 
 const long double pi = acos(-1.0);
 string alp="abcdefghijklmnopqrstuvwxyz";
