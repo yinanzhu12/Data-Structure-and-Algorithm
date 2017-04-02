@@ -52,7 +52,7 @@ int phi(int n) {
 }
 
 /*get all distinct prime factors of n and store them in pf, store their multiplicity in mult, and return the number of positive divisors, including 1 and itself*/
-void primefactor(int n, vi& pf,vi& mult) {
+int primefactor(int n, vi& pf,vi& mult) {
 	int result = 1;
 	for (int i = 2; i*i <= n; i++) {
 		if (n % i == 0) {
