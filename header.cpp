@@ -24,6 +24,8 @@ typedef vector<double> vdb;
 typedef pair<double, double> dd;
 typedef set<int> si;
 typedef set<long long> sll;
+#define fi first
+#define se second
 #define matrix(a) vector< vector<a> >
 #define sz(a) int((a).size()) 
 #define lop(i,a,b) for (int i=a; i<=b; i++)
