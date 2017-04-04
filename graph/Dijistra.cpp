@@ -113,7 +113,7 @@ int singledjs(matrix(edge)& alist,int source,int dest) {
 }
 
 /*compute the shortest distance from source to other nodes 
-in an DIRECTED weighted graph with nodes 1,...,n and m edges*/
+in an DIRECTED NONNEGATIVE weighted graph with nodes 1,...,n and m edges*/
 int main() {
 	int n, m;
 	cin >> n >> m;
