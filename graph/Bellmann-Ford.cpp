@@ -41,6 +41,10 @@ typedef set<long long> sll;
 #define enter cout<<'\n'
 #define lb(i,v) int(lower_bound(all(v),i)-v.begin())
 #define ub(i,v) int(upper_bound(all(v),i)-v.begin())
+
+/*must be greater than any possible path*/
+const int inf=1000000;
+
 class edge {
 public:
 	int v;
