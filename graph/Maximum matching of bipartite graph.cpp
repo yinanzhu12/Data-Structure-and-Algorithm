@@ -90,8 +90,8 @@ int main() {
 	lop(i, 1, n)amatrix[n + m + 1][i] = 1;
 	lop(i, n + 1, m + n)amatrix[i][n + m + 2] = 1;
 	matrix(int) residue = amatrix;
-	int maxmatching=maxflow(residue, n + 1 + m, n + m + 2);/*maxmatching is the capacity of the maximum matchin
-    residue will be the residue network flow*/
+	int maxmatching=maxflow(residue, n + 1 + m, n + m + 2);/*maxmatching is the capacity of the maximum matching, 
+	Koenig's theorem states that it is also the capcity of minimum vertex cover. residue will be the residue network flow*/
 	vi covered(n + m + 1, 0);
 	lop(i, n+1, n+m) {
 		lop(j, 1, n) {
