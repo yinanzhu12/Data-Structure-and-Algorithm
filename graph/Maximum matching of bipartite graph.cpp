@@ -82,18 +82,96 @@ int maxflow(matrix(int)& amatrix, int source, int sink) {
 	}
 	return mf;
 }
-
+void dfs(matrix(int)& amatrix, int root, vi& side, vi& visited) {
+	visited[root] = 1;
+	vlop1(i, amatrix[root]) {
+		if (amatrix[root][i] && !visited[i]) {
+			visited[i] = 1;
+			side[i] = !side[root];
+			dfs(amatrix, i, side, visited);
+		}
+	}
+	return;
+}
 /*compute the maximum matching and minimum edge cover graph with Ford-Fulkerson algorithm*/
 int main() {
+	matrix(int) amatrix(n + 3, vi(n + 3)); /*adjacency list of UNDIRECTED CONNNECTED bipartite graph, with node 1,...n.
+										   n+1 is the left supersource, n+2 is the right supersource*/
+	vi side(n + 1, -1), visited(n + 1, 0);
+	side[1] = 0;
+	dfs(dfs, 1, side, visited);/*side[i]=0 for i on left, 1 for right*/
+	lop(i, 1, n) {
+		if (!side[i])amatrix[n+1][i] = 1;
+		else {
+			vlop1(j, amatrix[i])amatrix[i][j] = 0;
+			amatrix[i][n + 2] = 1;
+		}
+	}
+	matrix(int) residue = amatrix;
+	int maxmatching=maxflow(residue, n + 1, n +  2);/*maxmatching is the capacity of the maximum matching, 
+	Koenig's theorem states that it is also the capcity of minimum vertex cover. residue will be the residue network flow*/
+	vi covered(n + 1, 0);
+	lop(i, 1, n-1) {
+		if (!side[i]) {
+			lop(j, i + 1, n) {
+				if (residue[i][j]) {
+					covered[i] = 1;
+					covered[j] = 1;
+				}
+			}
+		}
+		else {
+			lop(j, i + 1, n) {
+				if (residue[j][i]) {
+					covered[i] = 1;
+					covered[j] = 1;
+				}
+			}
+		}
+	}
+	/*get the capacity of minimum edge cover*/
+	int miniedgecover = maxmatching;
+	vlop1(i, 1,n-1) {
+		if (!covered[i]) {
+			if (!side[i]) {
+				lop(j, i + 1, n) {
+					if (residue[i][j]) {
+						residue[i][j] = 0;
+						residue[j][i] = 1;
+						covered[i] = 1;
+						covered[j] = 1;
+						miniedgecover++;
+						break;
+					}
+				}
+			}
+			else {
+				lop(j, i+1, n) {
+					if (residue[j][i]) {
+						residue[j][i] = 0;
+						residue[i][j] = 1;
+						covered[i] = 1;
+						covered[j] = 1;
+						miniedgecover++;
+						break;
+					}
+				}
+			}
+		}
+	}
+	return 0;
+}
+/*When left and right note are specified and put together in input*/
+int main() {
 	matrix(int) amatrix(n + m + 3, vi(n + m + 3)); /*adjacency list of graph where all edges are from left to right with capcity one.
-	Node 1,...n on left side, n+1,...m on right side. n+m+1 is supersource, n+m+2 is supersink*/
+												   Node 1,...n on left side, n+1,...m on right side. n+m+1 is supersource, n+m+2 is supersink*/
 	lop(i, 1, n)amatrix[n + m + 1][i] = 1;
 	lop(i, n + 1, m + n)amatrix[i][n + m + 2] = 1;
 	matrix(int) residue = amatrix;
-	int maxmatching=maxflow(residue, n + 1 + m, n + m + 2);/*maxmatching is the capacity of the maximum matching, 
-	Koenig's theorem states that it is also the capcity of minimum vertex cover. residue will be the residue network flow*/
+	int maxmatching = maxflow(residue, n + 1 + m, n + m + 2);/*maxmatching is the capacity of the maximum matching,
+															 Koenig's theorem states that it is also the capcity of minimum vertex cover. residue will be the residue network flow*/
 	vi covered(n + m + 1, 0);
-	lop(i, n+1, n+m) {
+	lop(i, n + 1, n + m) {
 		lop(j, 1, n) {
 			if (residue[i][j]) {
 				covered[i] = 1;
