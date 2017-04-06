@@ -1,6 +1,6 @@
 #include <vector>;
 
-
+const int inf=100000;
 int nextprime(vi& sieve, int previous) {
 	int next = previous + 1;
 	while (next <= sz(sieve) - 1) {
@@ -15,7 +15,6 @@ int nextprime(vi& sieve, int previous) {
 	return next;
 }
 int main() {
-	int inf=10000;
 	vi sieve(inf + 1, 1);
 	/*define 1 as non-prime*/
 	sieve[1] = 0;
