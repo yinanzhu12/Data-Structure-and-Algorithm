@@ -41,7 +41,7 @@ typedef set<long long> sll;
 
 const int inf; /*must be greater than the maximum capcity of any edge*/
 
-int augmentpath(matrix(int)& amatrix, int source, int sink) {
+int augmentpath(matrix(int)& amatrix,matrix(int)& udlist, int source, int sink) {
 	vi parent(sz(amatrix), -1), visited(sz(amatrix), 0);
 	queue<int> q;
 	q.push(source);
@@ -50,12 +50,13 @@ int augmentpath(matrix(int)& amatrix, int source, int sink) {
 	while (!q.empty()) {
 		int r = q.front();
 		q.pop();
-		vlop(i, amatrix[r]) {
-			if (amatrix[r][i] && !visited[i]) {
-				q.push(i);
-				visited[i] = 1;
-				parent[i] = r;
-				foundsink = (i == sink);
+		vlop(i, udlist[r]) {
+			int child = udlist[r][i];
+			if (!visited[child] && amatrix[r][child]) {
+				q.push(child);
+				visited[child] = 1;
+				parent[child] = r;
+				foundsink = (child == sink);
 			}
 		}
 		if (foundsink)break;
@@ -75,10 +76,10 @@ int augmentpath(matrix(int)& amatrix, int source, int sink) {
 	return aug;
 }
 
-int maxflow(matrix(int)& amatrix, int source, int sink) {
+int maxflow(matrix(int)& amatrix,matrix(int)& udlist, int source, int sink) {
 	int mf = 0;
 	while (true) {
-		int t = augmentpath(amatrix, source, sink);/*the maximum weight on the augment path on the current residue network*/
+		int t = augmentpath(amatrix, udlist, source, sink);/*the maximum weight on the augment path on the current residue network*/
 		if (!t)break;
 		mf += t;
 	}
@@ -88,8 +89,9 @@ int maxflow(matrix(int)& amatrix, int source, int sink) {
 /*compute the maximum flow of a directed weighted graph with Ford-Fulkerson algorithm*/
 int main() {
 	matrix(int) amatrix(n + 1, vi(n + 1)); /*adjacency list of the graph, index start from 1*/
-	matrix(int) residue = amatrix;
+	matrix(int) resmatrix = amatrix;
+	matrix(int) udlist; /*an UNDERIECTED adjacecy list version of residue*/
 	int source, sink;
-	int mf=maxflow(residue, source, sink); /*return the maximum flow (also the capcity of the mininum cut),
+	int mf=maxflow(resmatrix, udlist,source, sink); /*return the maximum flow (also the capcity of the mininum cut),
     residue will become the adjacency matrix residue network*/
 }
