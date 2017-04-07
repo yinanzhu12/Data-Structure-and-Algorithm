@@ -93,14 +93,23 @@ void dfs(matrix(int)& amatrix, int root, vi& side, vi& visited) {
 	}
 	return;
 }
-/*compute the maximum matching and minimum edge cover graph with Ford-Fulkerson algorithm*/
+void findapath(matrix(int)& amatrix, int root, vi& visited) {
+	visited[root] = 1;
+	lop(i, 1, n) {
+		if (amatrix[root][i] && !visited[i]) findapath(amatrix, i, visited);
+	}
+	return;
+}
+
+/*compute the maximum matching and minimum vertex cover*/
 int main() {
+	/*solve the maximum matching problem*/
 	matrix(int) amatrix(n + 1, vi(n + 1)); /*adjacency list of UNDIRECTED bipartite graph, with node 1,...n.*/
 	vi side(n + 1, -1), visited(n + 1, 0);
 	side[1] = 0;
 	dfs(dfs, 1, side, visited);/*side[i]=0 for i on left, 1 for right*/
-	matrix(int) residue(n+3,vi(n+3,0)); /*residue is the adjacency list of DIRECTED graph with all edges from left to right
-										plus n+1 as left supersource, n+2 as right supersource*/
+	matrix(int) residue(n + 3, vi(n + 3, 0)); /*residue is the adjacency list of DIRECTED graph with all edges from left to right
+											  plus n+1 as left supersource, n+2 as right supersource*/
 	lop(i, 1, n) {
 		if (!side[i]) {
 			vlop1(j, amatrix[i])if (amatrix[i][j]) residue[i][j] = 1;
@@ -108,13 +117,13 @@ int main() {
 		}
 		else residue[i][n + 2] = 1;
 	}
-	int mm=maxflow(residue, n + 1, n +  2);/*maxmatching is the capacity of the maximum matching, 
-	Koenig's theorem states that it is also the capcity of minimum vertex cover. residue will be the residue network flow*/
+	int mm = maxflow(residue, n + 1, n + 2);/*maxmatching is the capacity of the maximum matching,
+													 Koenig's theorem states that it is also the capcity of minimum vertex cover. residue will be the residue network flow*/
 	vi covered(n + 1, 0);
-	lop(i, 1, n-1) {
+	lop(i, 1, n) {
 		if (!covered[i]) {
 			if (!side[i]) {
-				lop(j, i + 1, n) {
+				lop(j, 1, n) {
 					if (residue[j][i]) {
 						covered[i] = 1;
 						covered[j] = 1;
@@ -122,7 +131,7 @@ int main() {
 				}
 			}
 			else {
-				lop(j, i + 1, n) {
+				lop(j, 1, n) {
 					if (residue[i][j]) {
 						covered[i] = 1;
 						covered[j] = 1;
@@ -131,35 +140,11 @@ int main() {
 			}
 		}
 	}
-	/*get the capacity of minimum edge cover*/
-	int mec = mm;
-	vlop1(i, 1,n-1) {
-		if (!covered[i]) {
-			if (!side[i]) {
-				lop(j, i + 1, n) {
-					if (residue[i][j]) {
-						residue[i][j] = 0;
-						residue[j][i] = 1;
-						covered[i] = 1;
-						covered[j] = 1;
-						mec++;
-						break;
-					}
-				}
-			}
-			else {
-				lop(j, i+1, n) {
-					if (residue[j][i]) {
-						residue[j][i] = 0;
-						residue[i][j] = 1;
-						covered[i] = 1;
-						covered[j] = 1;
-						mec++;
-						break;
-					}
-				}
-			}
-		}
-	}/*the residue will be the residue network after adding edges for mec*/
+	vi mvc(n+1,0),visited(n+1,0);
+	lop(i, 1, n) {
+		if (!covered[i] && !side[i]&&!visited[i]) findapath(amatrix, i,visited);
+	}
+	/*visited[i]==1 iff i is on an alternating path starting from an uncovered node*/
+	lop(i, 1, n) mvc[i] = (!visited[i])^side[i];/*MVC={left\U}+{right intersect U}, U={i|visited[i]=1}*/
 	return 0;
 }
