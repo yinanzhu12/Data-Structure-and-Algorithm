@@ -59,15 +59,10 @@ int augmentpath(matrix(int)& amatrix, int source, int sink) {
 		if (foundsink)break;
 	}
 	if (!foundsink)return 0;
-	int node = sink, aug = 2;
+	int node = sink;
 	while (parent[node] != -1) {
-		aug = min(amatrix[parent[node]][node], aug);
-		node = parent[node];
-	}
-	node = sink;
-	while (parent[node] != -1) {
-		amatrix[parent[node]][node] -= aug;
-		amatrix[node][parent[node]] += aug;
+		amatrix[parent[node]][node] --;
+		amatrix[node][parent[node]] ++;
 		node = parent[node];
 	}
 	return aug;
@@ -93,6 +88,14 @@ void dfs(matrix(int)& amatrix, int root, vi& side, vi& visited) {
 	}
 	return;
 }
+void mtol(matrix(int)& amatrix, matrix(int)& alist) {
+	vlop1(i, alist) {
+		vlop1(j, amatrix[i]) {
+			if (amatrix[i][j])alist[i].pb(j);
+		}
+	}
+	return;
+}
 /*compute the maximum matching and minimum edge cover graph with Ford-Fulkerson algorithm*/
 int main() {
 	matrix(int) amatrix(n + 1, vi(n + 1)); /*adjacency list of UNDIRECTED bipartite graph, with node 1,...n.*/
@@ -110,25 +113,13 @@ int main() {
 	}
 	int mm=maxflow(residue, n + 1, n +  2);/*maxmatching is the capacity of the maximum matching, 
 	Koenig's theorem states that it is also the capcity of minimum vertex cover. residue will be the residue network flow*/
+	matrix(int) residuelist(n + 1);
+	mtol(residue, residuelist);
 	vi covered(n + 1, 0);
-	lop(i, 1, n-1) {
-		if (!covered[i]) {
-			if (!side[i]) {
-				lop(j, i + 1, n) {
-					if (residue[j][i]) {
-						covered[i] = 1;
-						covered[j] = 1;
-					}
-				}
-			}
-			else {
-				lop(j, i + 1, n) {
-					if (residue[i][j]) {
-						covered[i] = 1;
-						covered[j] = 1;
-					}
-				}
-			}
+	lop(i, 1, n) {
+		if (side[i]) {
+			if (sz(residuelist[i]))covered[i] = 1;
+			vlop(j, residuelist[i])covered[residuelist[i][j]] = 1;
 		}
 	}
 	/*get the capacity of minimum edge cover*/

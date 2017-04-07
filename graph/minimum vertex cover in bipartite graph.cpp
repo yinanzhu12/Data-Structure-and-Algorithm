@@ -59,15 +59,10 @@ int augmentpath(matrix(int)& amatrix, int source, int sink) {
 		if (foundsink)break;
 	}
 	if (!foundsink)return 0;
-	int node = sink, aug = 2;
+	int node = sink;
 	while (parent[node] != -1) {
-		aug = min(amatrix[parent[node]][node], aug);
-		node = parent[node];
-	}
-	node = sink;
-	while (parent[node] != -1) {
-		amatrix[parent[node]][node] -= aug;
-		amatrix[node][parent[node]] += aug;
+		amatrix[parent[node]][node]--;
+		amatrix[node][parent[node]]++;
 		node = parent[node];
 	}
 	return aug;
@@ -93,10 +88,19 @@ void dfs(matrix(int)& amatrix, int root, vi& side, vi& visited) {
 	}
 	return;
 }
-void findapath(matrix(int)& amatrix, int root, vi& visited) {
+void findapath(matrix(int)& residue, int root, vi& visited) {
+	int n = sz(residue) - 1;
 	visited[root] = 1;
-	lop(i, 1, n) {
-		if (amatrix[root][i] && !visited[i]) findapath(amatrix, i, visited);
+	vlop(i,residue[root]) {
+		if (amatrix[root][residue[root][i]] && !visited[residue[root][i]]) findapath(residue, residue[root][i], visited);
+	}
+	return;
+}
+void mtol(matrix(int)& amatrix, matrix(int)& alist) {
+	vlop1(i, alist) {
+		vlop1(j, amatrix[i]) {
+			if (amatrix[i][j])alist[i].pb(j);
+		}
 	}
 	return;
 }
@@ -106,8 +110,12 @@ int main() {
 	/*solve the maximum matching problem*/
 	matrix(int) amatrix(n + 1, vi(n + 1)); /*adjacency list of UNDIRECTED bipartite graph, with node 1,...n.*/
 	vi side(n + 1, -1), visited(n + 1, 0);
-	side[1] = 0;
-	dfs(dfs, 1, side, visited);/*side[i]=0 for i on left, 1 for right*/
+	lop(i, 1, n) {
+		if (!visited[i]) {
+			side[i] = 0;
+			dfs(amatrix, i, side, visited);
+		}
+	}/*side[i]=0 for i on left, 1 for right*/
 	matrix(int) residue(n + 3, vi(n + 3, 0)); /*residue is the adjacency list of DIRECTED graph with all edges from left to right
 											  plus n+1 as left supersource, n+2 as right supersource*/
 	lop(i, 1, n) {
@@ -119,32 +127,22 @@ int main() {
 	}
 	int mm = maxflow(residue, n + 1, n + 2);/*maxmatching is the capacity of the maximum matching,
 													 Koenig's theorem states that it is also the capcity of minimum vertex cover. residue will be the residue network flow*/
+	matrix(int) residuelist(n+1);
+	mtol(residue, residuelist);
 	vi covered(n + 1, 0);
 	lop(i, 1, n) {
-		if (!covered[i]) {
-			if (!side[i]) {
-				lop(j, 1, n) {
-					if (residue[j][i]) {
-						covered[i] = 1;
-						covered[j] = 1;
-					}
-				}
-			}
-			else {
-				lop(j, 1, n) {
-					if (residue[i][j]) {
-						covered[i] = 1;
-						covered[j] = 1;
-					}
-				}
-			}
+		if (side[i]) {
+			if (sz(residuelist[i]))covered[i] = 1;
+			vlop(j, residuelist[i])covered[residuelist[i][j]] = 1;
 		}
 	}
-	vi mvc(n+1,0),visited(n+1,0);
+	visited.resize(0);
+	visited.resize(n + 1, 0);
 	lop(i, 1, n) {
-		if (!covered[i] && !side[i]&&!visited[i]) findapath(amatrix, i,visited);
+		if (!covered[i] && !side[i]&&!visited[i]) findapath(residuelist, i,visited);
 	}
 	/*visited[i]==1 iff i is on an alternating path starting from an uncovered node*/
+	vi mvc(n + 1, 0);
 	lop(i, 1, n) mvc[i] = (!visited[i])^side[i];/*MVC={left\U}+{right intersect U}, U={i|visited[i]=1}*/
 	return 0;
 }
