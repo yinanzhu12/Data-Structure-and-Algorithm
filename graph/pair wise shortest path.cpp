@@ -59,7 +59,7 @@ void multiply(matrix(int)& a, matrix(int)& b) {
 void floydwarshall(matrix(int)& a) {
 	int n = sz(a)-1;
 	lop(i,1,n){
-		matrix b=a;
+		matrix(int) b=a;
 		lop(j,1,n) {
 			lop(k,1,n) a[j][k] = min(a[j][k], b[j][i] + b[i][k]);
 		}
