@@ -57,7 +57,7 @@ void multiply(matrix(int)& a, matrix(int)& b) {
 }
 
 void floydwarshall(matrix(int)& a) {
-	int n = sz(n)-1;
+	int n = sz(a)-1;
 	lop(i,1,n){
 		matrix b=a;
 		lop(j,1,n) {
