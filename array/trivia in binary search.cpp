@@ -49,7 +49,7 @@ int countbetween(vi& v, int l, int r) {
 }
 
 int main() {
-	/*general binary search procejure*/
+	/*find the smallest m such that f(m)=true*/
 	int l, u;
 	int m = (l + u) / 2;
 	bool check;
@@ -57,9 +57,8 @@ int main() {
 		check = f(m);
 		if (check) u = m;
 		else l = m + 1;
+		m=(l+u)/2;
 	}
-	
-	
 	/*in a SORTED array, count how many elements satisfy v[i]<=r && v[i]>=l*/
 	int l, r;
 	vi v;
