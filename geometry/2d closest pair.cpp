@@ -42,17 +42,32 @@ typedef set<long long> sll;
 #define lb(i,v) int(lower_bound(all(v),i)-v.begin())
 #define ub(i,v) int(upper_bound(all(v),i)-v.begin())
 
-/*compute the distance from (a.first,a.second) to the line passing through (b.first,b.second) and (c.first, c.second)*/
-db height(dd a, dd b, dd c) {
-	dd cb = dd(b.fi - c.fi, b.se - c.se), ca = dd(a.fi - c.fi, a.se - c.se);
-	db caxcb = abs(ca.fi*cb.se - cb.fi*ca.se);
-	db cbmod = sqrt(cb.fi*cb.fi + cb.se*cb.se);
-	return caxcb / cbmod;
+db distance(dd p, dd q) {
+	return sqrt(pow(p.fi - q.fi, 2) + pow(p.se - q.se, 2));
 }
 
-/*compute the intersection of two lines with equation y=line.fi*x+line.se, lines CANNOT be parrelleled*/
-dd intersect(dd line1, dd line2) {
-	db x = (line1.se- line2.se) / (line2.fi - line1.fi);
-	db y = x*line1.fi + line1.se;
-	return dd(x, y);
+db cp(vector<dd>& points) {
+	db d = distance(points[1], points[0]), left = points[0].fi, right = points.back().fi;
+	lop(i, 2, sz(points) - 1)d = min(d, distance(points[i], points[0]));
+	set<dd> window;
+	int back = 0;
+	vlop1(i, points) {
+		if (points[i].fi - points[i - 1].fi <= d)window.insert(dd(points[i - 1].se, points[i - 1].fi));
+		while (back<i) {
+			if (points[i].fi - points[back].fi>d)window.erase(dd(points[back].se, points[back].fi));
+			else break;
+			back++;
+		}
+		set<dd>::iterator l = window.lower_bound(dd(points[i].se - d, left - 1)), r = window.upper_bound(dd(points[i].se + d, right + 1));
+		ii temp = dd(points[i].se, points[i].fi);
+		for (set<dd>::iterator it = l; it != r; it++)d = min(d, distance(temp, *it));
+	}
+	return d;
+}
+
+/*compute the minimum distance between any different points (point[i].fi,point[i].se)*/
+int main() {
+	vector<dd> points;
+	sort(all(points));
+	dd d = cp(points);
 }
