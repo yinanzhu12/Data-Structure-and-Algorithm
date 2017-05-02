@@ -42,6 +42,9 @@ const long long inf;
 /*number to mod big number, if needed*/
 const long long M;
 
+vll fact, invfact;
+
+
 ll euclidean(ll a, ll b) {
 	vll r = { a,b };
 	vll s = { 1,0 };
@@ -57,7 +60,7 @@ ll euclidean(ll a, ll b) {
 	if (s[i] >= b)s[i] -= b;
 	return s[i];
 }
-void factorio(vll& fact,vll& invfact) {
+void factorio() {
 	fact.resize(inf + 1, 1);
 	invfact.resize(inf + 1, 1);
 	vlop1(i, fact) {
@@ -67,19 +70,21 @@ void factorio(vll& fact,vll& invfact) {
 	return;
 }
 
-void powerof(int a, vll& power) {
-	power.resize(inf + 1, 1);
-	vlop1(i, power)power[i] = power[i - 1] * a%M;
-	return;
+ll comb(int a, int b) {
+	return fact[a] * invfact[a - b] % M*invfact[b] % M;
+}
+
+ll perm(int a, int b) {
+	return fact[a] * invfact[a - b] % M;
 }
 
 int main() {
 	/*fact[i]=i!%M, invfact[i]=(i!)^-1%M*/
-	vll fact, invfact;
-	factorio(fact, invfact);
+	factorio();
+	
+	/*a!/(b!(a-b)!)*/
+	comb(a, b);
 
-	/*power[i]=a^i%M*/
-	vll power;
-	int a;
-	powerof(a, power);
+	/*a!/(a-b)!*/
+	perm(a, b);
 }
