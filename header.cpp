@@ -12,6 +12,7 @@
 #include <iomanip>
 #include <numeric>
 
+#include <bits/stdc++.h>/*replace all above,only available for GNC*/
 using namespace std;
 
 typedef vector<int> vi;
