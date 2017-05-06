@@ -49,15 +49,18 @@ int countbetween(vi& v, int l, int r) {
 }
 
 int main() {
-	/*find the smallest m such that f(m)=true*/
-	int l, u;
-	int m = (l + u) / 2;
-	bool check;
-	while (l != u) {
-		check = f(m);
-		if (check) u = m;
-		else l = m + 1;
-		m=(l+u)/2;
+	/*find the smallest m such that f(m) is true*/
+	int l, u, med;
+	while (l < u) {
+		med = (l + u) / 2;
+		if (f(m)) u = med;
+		else l = med + 1;
+	}
+	/*find the greatest m such that f(m) is true*/
+	while (l < u) {
+		med = (l + u) / 2 + 1;
+		if(f(m))l = med;
+		else u = med - 1;
 	}
 	/*in a SORTED array, count how many elements satisfy v[i]<=r && v[i]>=l*/
 	int l, r;
