@@ -53,13 +53,13 @@ int main() {
 	int l, u, med;
 	while (l < u) {
 		med = (l + u) / 2;
-		if (f(m)) u = med;
+		if (f(med)) u = med;
 		else l = med + 1;
 	}
 	/*find the greatest m such that f(m) is true*/
 	while (l < u) {
 		med = (l + u) / 2 + 1;
-		if(f(m))l = med;
+		if(f(med))l = med;
 		else u = med - 1;
 	}
 	/*in a SORTED array, count how many elements satisfy v[i]<=r && v[i]>=l*/
