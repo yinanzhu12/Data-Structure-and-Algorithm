@@ -45,34 +45,21 @@ typedef set<long long> sll;
 /*must be greater than any possible path*/
 const int inf=1000000;
 
-class edge {
-public:
-	int v;
-	int w;
-	edge(int a, int b) {
-		v = a;
-		w = b;
-	}
-	edge() {
-		v = 0;
-		w = 0;
-	}
-};
-
-bool bellmanford(matrix(int)& alist, int source, vi& d, vi& pred) {
+bool bellmanford(matrix(ii)& alist, int source, vi& d, vi& pred) {
+	int n = sz(alist)-1;
 	lop(i, 1, n) {
 		lop(j, 1, n) {
 				vlop(k, alist[j]) {
-					if (d[j] + alist[j][k].w < d[alist[j][k].v) {
-						d[alist[j][k].v] = d[j] + alist[j][k].w;
-						pred[alist[j][k].v] = j;
+					if (d[j] + alist[j][k].se < d[alist[j][k].fi]) {
+						d[alist[j][k].fi] = d[j] + alist[j][k].se;
+						pred[alist[j][k].fi] = j;
 					}
 				}
 			}
 		}
 	lop(j, 1, n) {
 		vlop(k, alist[j]) {
-			if (d[j] + alist[j][k].w < d[alist[j][k].v)return false;
+			if (d[j] + alist[j][k].se < d[alist[j][k].fi])return false;
 		}
 	}
 	return true;
@@ -81,14 +68,9 @@ bool bellmanford(matrix(int)& alist, int source, vi& d, vi& pred) {
 /*use Bellman-Ford algorithm to check if a DIRECTED graph (with node 1,...,n) have negative loop, 
 if not, return the shortest distance of from a source to all nodes*/
 int main() {
-	matrix(edge) alist(n+1);
-	/*initialize*/
+	matrix(ii) alist(n+1);
 	int source;
-	vi d(n + 1),pred(n+1);
-	vlop1(i, d) {
-		d[i] = inf;
-		pred[i] = -1;
-	}
+	vi d(n + 1,inf),pred(n+1,-1);
 	d[source] = 0;
 	/*if nonegativeloo=true, d[i]=shortest distance from source to i*/
 	bool nonegativeloop=bellmanford(alist, source, d, pred);
