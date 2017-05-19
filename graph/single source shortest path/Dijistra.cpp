@@ -41,16 +41,6 @@ typedef set<long long> sll;
 /*must be greater than the SUM of all edges*/
 const int inf = 1000000000;
 
-class edge {
-public:
-	int w;
-	int v;
-	edge(int a, int b) {
-		v = a;
-		w = b;
-	}
-};
-
 void initialize(int start, vi& stree, vi& level, int l, int u) {
 	if (sz(stree) - 1 < start)stree.resize(start + 1);
 	if (l == u)stree[start] = l;
@@ -75,7 +65,7 @@ void updatetree(int start, vi& stree, vi& level, int index, int value, int l, in
 	return;
 }
 
-void djs(matrix(edge)& alist,vi& distance,int source) {
+void djs(matrix(ii)& alist,vi& distance,int source) {
 	int n = sz(alist) - 1,node;
 	vi visited(n + 1, 0), stree, key(n + 1,inf);
 	key[source] = 0;
@@ -87,13 +77,13 @@ void djs(matrix(edge)& alist,vi& distance,int source) {
 		updatetree(1, stree, key, node, inf, 0, n);
 		visited[node] = 1;
 		vlop(j, alist[node]) {
-			if (!visited[alist[node][j].v] && key[alist[node][j].v] > distance[node]+alist[node][j].w)updatetree(1, stree, key, alist[node][j].v, alist[node][j].w+distance[node], 0, n);
+			if (!visited[alist[node][j].fi] && key[alist[node][j].fi] > distance[node]+alist[node][j].se)updatetree(1, stree, key, alist[node][j].fi, alist[node][j].se+distance[node], 0, n);
 		}
 	}
 	return;
 }
 
-int singledjs(matrix(edge)& alist,int source,int dest) {
+int singledjs(matrix(ii)& alist,int source,int dest) {
 	int n = sz(alist) - 1,arrive, node;
 	vi visited(n + 1, 0), stree, key(n + 1,inf);
 	key[source] = 0;
@@ -106,7 +96,7 @@ int singledjs(matrix(edge)& alist,int source,int dest) {
 		updatetree(1, stree, key, node, inf, 0, n);
 		visited[node] = 1;
 		vlop(j, alist[node]) {
-			if (!visited[alist[node][j].v] && key[alist[node][j].v] > arrive+alist[node][j].w)updatetree(1, stree, key, alist[node][j].v, alist[node][j].w+arrive, 0, n);
+			if (!visited[alist[node][j].fi] && key[alist[node][j].fi] > arrive+alist[node][j].se)updatetree(1, stree, key, alist[node][j].fi, alist[node][j].se+arrive, 0, n);
 		}
 	}
 	return -1;
@@ -117,12 +107,7 @@ in an DIRECTED NONNEGATIVE weighted graph with nodes 1,...,n and m edges*/
 int main() {
 	int n, m;
 	cin >> n >> m;
-	matrix(edge) alist(n + 1);
-	lop(j,1,m) {
-		int a, b, c;
-		cin >> a >> b >> c;
-		alist[a].push_back(edge(b, c));
-	}
+	matrix(ii) alist(n + 1);
 	vi distance(n+1,-1);
 	int source,dest;
 	djs(alist, distance,source);/*distance[i] is the length of shortest paht from source to i. -1 if not reachable*/
