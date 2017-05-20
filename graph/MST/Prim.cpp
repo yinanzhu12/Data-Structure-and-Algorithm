@@ -40,16 +40,6 @@ typedef set<long long> sll;
 /*must be greater than any edge's weight*/
 const int inf = 100001;
 
-class edge {
-public:
-	int w;
-	int v;
-	edge(int a, int b) {
-		v = a;
-		w = b;
-	}
-};
-
 void initialize(int start, vi& stree, vi& level, int l, int u) {
 	if (sz(stree) - 1 < start)stree.resize(start + 1);
 	if (l == u)stree[start] = l;
@@ -73,7 +63,7 @@ void updatetree(int start, vi& stree, vi& level, int index, int value, int l, in
 	return;
 }
 
-void prim(matrix(edge)& alist,matrix(edge)& tree,int root) {
+void prim(matrix(ii)& alist,matrix(ii)& tree,int root) {
 	int n = sz(alist) - 1;
 	vi intree(n + 1, 0), key(n + 1, inf), stree,link(n+1);
 	key[root] = 0;
@@ -85,9 +75,9 @@ void prim(matrix(edge)& alist,matrix(edge)& tree,int root) {
 		tree[node].pb(edge(link[node], key[node]));
 		tree[link[node]].pb(edge(node,key[node]));
 		vlop(j, alist[node]) {
-			if (!intree[alist[node][j].v] && key[alist[node][j].v] > alist[node][j].w) {
-				updatetree(1, stree, key, alist[node][j].v, alist[node][j].w, 0, n);
-				link[alist[node][j].v] = node;
+			if (!intree[alist[node][j].fi] && key[alist[node][j].fi] > alist[node][j].se) {
+				updatetree(1, stree, key, alist[node][j].fi, alist[node][j].se, 0, n);
+				link[alist[node][j].fi] = node;
 			}
 		}
 	}
@@ -95,17 +85,11 @@ void prim(matrix(edge)& alist,matrix(edge)& tree,int root) {
 }
 
 /*use Prim algorithm to find the MST rooted in "root" of a weighted undirected connected graph 
-with n nodes (indexed from 1) and m edges, store the tree in another adjacency list*/
+with nodes 1,...,n and m edges, store the tree in another adjacency list*/
 int main() {
 	int n,m;
 	cin >> n>>m;
-	matrix(edge) alist(n + 1),tree(n+1);
-	lop(i,1,m) {
-		int a, b, c;
-		cin >> a >> b >> c;
-		alist[a].push_back(edge(b, c));
-		alist[b].push_back(edge(a, c));
-	}
+	matrix(ii) alist(n + 1),tree(n+1);
 	prim(alist, tree,1);
 	return 0;
 }

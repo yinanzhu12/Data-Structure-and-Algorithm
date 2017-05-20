@@ -59,10 +59,10 @@ bool bellmanford(matrix(ii)& alist, int source, vi& d, vi& pred) {
 		}
 	lop(j, 1, n) {
 		vlop(k, alist[j]) {
-			if (d[j] + alist[j][k].se < d[alist[j][k].fi])return false;
+			if (d[j] + alist[j][k].se < d[alist[j][k].fi])return true;
 		}
 	}
-	return true;
+	return false;
 }
 
 /*use Bellman-Ford algorithm to check if a DIRECTED graph (with node 1,...,n) have negative loop, 
@@ -72,7 +72,7 @@ int main() {
 	int source;
 	vi d(n + 1,inf),pred(n+1,-1);
 	d[source] = 0;
-	/*if nonegativeloo=true, d[i]=shortest distance from source to i*/
-	bool nonegativeloop=bellmanford(alist, source, d, pred);
+	/*if negloop=false, d[i]=shortest distance from source to i*/
+	bool negloop=bellmanford(alist, source, d, pred);
 	return 0;
 }
