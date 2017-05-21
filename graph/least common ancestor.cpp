@@ -51,7 +51,6 @@ void initialize(int start, vi& stree, vi& level, int l, int u) {
 }
 
 int rmq(int start, vi& stree, vi& level, int i, int j, int l, int u) {
-	if (i > j)swap(i, j);
 	if (j<l || i>u)return -1;
 	if (l >= i&&u <= j)return stree[start];
 	int t1 = rmq(2 * start, stree, level, i, j, l, (u + l) / 2);
@@ -88,6 +87,7 @@ int main() {
 	vi stree;
 	initialize(1, stree, level, 0, n-1);
 	int u, v;
+	if(entry[u]>entry[v])swap(u,v);
 	tour[rmq(1, stree, level, entry[u], entry[v], 0, sz(level) - 1)];/*the node number of LCA of u,v*/
 	return 0;
 }
