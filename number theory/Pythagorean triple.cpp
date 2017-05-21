@@ -86,7 +86,7 @@ void pytriple(int i, matrix(ll)& triple) {
 
 int main() {
 	matrix(ll) triple;
-	/*return any pythagorean triples containing i, put i in the middle of triple*/
+	/*return any primitive pythagorean triples containing i, put i in the middle of triple*/
 	pytriple(i, triple);
 	return 0;
 }
