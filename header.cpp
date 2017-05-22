@@ -48,6 +48,8 @@ const long double pi = acos(-1.0);
 string alp="abcdefghijklmnopqrstuvwxyz";
 string Alp="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 string digit="0123456789";
+vi prime={10781,11173,12251,12391,15511,106033,108301,112909,139967,139969};
+
 
 int main() {
 	/*for large input*/
