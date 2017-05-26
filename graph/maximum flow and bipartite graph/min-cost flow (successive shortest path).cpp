@@ -172,7 +172,7 @@ int main() {
 	while (true) {
 		vlop(i, d)d[i] = -1;
 		djs(alist, cap, cost, d, pre, source);
-		if (d[t] == -1)break;
+		if (d[sink] == -1)break;
 		reduce(alist, cost, cap, d);
 		augmentpath(cap, cost, pre, source, sink);
 	}
