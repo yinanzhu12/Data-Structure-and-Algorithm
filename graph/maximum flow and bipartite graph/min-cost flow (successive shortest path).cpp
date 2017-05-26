@@ -157,7 +157,7 @@ int main() {
 	int source = n, sink = n + 1;
 	/*alist becomes an undirected version of network*/
 	matrix(int) alist;
-	mtol(cap, cost, alist);
+	mtol(cap, originalcost, alist);
 
 	/*d[i]: the shortest distance from source to i; pre[i]: the predecessor of i on the shortest path from source to i*/
 	vi d(n, infcost), pre(n);
