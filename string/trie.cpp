@@ -81,3 +81,10 @@ public:
 		}
 	}
 };
+
+void dfs(trie* tr){
+    vlop(i,tr->edges){
+        if(tr->edges[i]!=nullptr)dfs(tr->edges[i],prefcount,querrycount);
+    }
+    return;
+}
