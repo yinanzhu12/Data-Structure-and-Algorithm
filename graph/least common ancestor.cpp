@@ -67,7 +67,7 @@ void dfs(matrix(int)& alist, vi& tour, int root, vi& entry, vi& level, vi& visit
 	entry[root] = sz(tour) - 1;
 	vlop(i, alist[root]) {
 		if (!visited[alist[root][i]]) {
-			dfs(alist, tour, alist[root][i], entry, visited,currentlevel+1);
+			dfs(alist, tour, alist[root][i], entry,level, visited,currentlevel+1);
 			tour.pb(root);
 			level.pb(currentlevel);
 		}
@@ -85,9 +85,8 @@ int main() {
 	vi visited(n + 1, 0);
 	dfs(alist, tour, 1, entry, level, visited,0);
 	vi stree;
-	initialize(1, stree, level, 0, n-1);
+	initialize(1, stree, level, 0, sz(level)-1);
 	int u, v;
-	if(entry[u]>entry[v])swap(u,v);
-	tour[rmq(1, stree, level, entry[u], entry[v], 0, sz(level) - 1)];/*the node number of LCA of u,v*/
+	tour[rmq(1, stree, level, min(entry[u],entry[v]), max(entry[u],entry[v]), 0, sz(level) - 1)];/*the node number of LCA of u,v*/
 	return 0;
 }
