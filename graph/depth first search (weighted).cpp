@@ -42,9 +42,8 @@ void dfs(matrix(ii)& alist, vi& tour, int root, vi& entry, vi& leave, vi& dtoroo
 	vlop(i,alist[root]) {
 		if (!visited[alist[root][i].fi]) {
 			dtoroot[alist[root][i].fi] = dtoroot[root] + alist[root][i].se;
-			dfs(alist, tour, alist[root][i].fi, entry, leave, dtoroot, currentlevel + 1, visited);
+			dfs(alist, tour, alist[root][i].fi, entry, leave, dtoroot, visited);
 			tour.pb(root);
-			level.pb(currentlevel);
 		}
 	}
 	leave[root] = sz(tour) - 1;

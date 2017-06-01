@@ -35,14 +35,14 @@ typedef vector<long long> vll;
 #define pb push_back
 #define enter cout<<'\n'
 
-void dfs(matrix(int)& alist, vi& tour, int root, vi& entry, vi& leave, vi& dtoroot, vi& visited) {
+void dfs(matrix(int)& alist, vi& tour, int root, vi& entry, vi& leave, vi& visited) {
 	visited[root] = 1;
 	tour.pb(root);
 	entry[root] = sz(tour) - 1;
 	vlop(i, alist[root]) {
 		if (!visited[alist[root][i]]) {
 			dtoroot[alist[root][i]] = dtoroot[root] + 1;
-			dfs(alist, tour, alist[root][i], entry, leave, dtoroot,  visited);
+			dfs(alist, tour, alist[root][i], entry, leave, visited);
 			tour.pb(root);
 		}
 	}
@@ -52,19 +52,11 @@ void dfs(matrix(int)& alist, vi& tour, int root, vi& entry, vi& leave, vi& dtoro
 
 int main() {
 	int n;
-	cin >> n;
 	matrix(int) alist(n + 1);
-	lop(i, 1, n - 1) {
-		int a,b;
-		cin >> a >> b >> c;
-		alist[a].pb(b);
-		alist[b].pb(a);
-	}
-	vi tour; /*Euler tour*/
-	vi dtoroot(n + 1, 0); /*distance to root from node i*/
+	vi tour; /*Eulerian tour*/
 	vi entry(n + 1); /*first time Euler tour reaches node i*/
 	vi leave(n + 1); /*first time dfs finishes all search in i's descendent tree in Euler tour*/
 	vi visited(n + 1, 0);
-	dfs(alist, tour, 1, entry, leave, dtoroot, visited);
+	dfs(alist, tour, 1, entry, leave, visited);
 	return 0;
 }
