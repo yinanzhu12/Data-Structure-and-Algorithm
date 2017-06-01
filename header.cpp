@@ -46,7 +46,6 @@ typedef set<long long> sll;
 
 const long double pi = acos(-1.0);
 const ll M=1e9+7;
-int a,b,c,d,e,f,g,h,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z;
 string alp="abcdefghijklmnopqrstuvwxyz";
 string Alp="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 string digit="0123456789";
