@@ -47,7 +47,7 @@ const ll M;
 ll expo(ll n, ll p) {
 	if (!p)return 1;
 	if (p == 1)return n%M;
-	ll t = exp(n, p / 2);
-	if (p % 2)return t*t%M*p%M;
+	ll t = expo(n, p / 2);
+	if (p % 2)return t*t%M*n%M;
 	return t*t%M;
 }
