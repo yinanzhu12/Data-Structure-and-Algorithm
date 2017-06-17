@@ -63,7 +63,7 @@ vector< complex<db> > transform(vll& a, int l, int r) {
 
 vll recover(vector< complex<db> >& a, int n) {
 	vll y(n);
-	vlop(i, y)y[i] = ll(a[i].real());
+	vlop(i, y)y[i] = llround(a[i].real());
 	return y;
 }
 
