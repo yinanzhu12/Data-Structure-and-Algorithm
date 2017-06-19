@@ -65,7 +65,7 @@ void fft(vector< complex<db> >& a, bool reverse = false) {
 	}
 	l--;
 	vi visited(n, 0);
-	vlop(i, y) {
+	vlop(i, a) {
 		if (!visited[i]) {
 			r = bitrev(i, l);
 			swap( a[r],a[i]);
@@ -90,7 +90,7 @@ void fft(vector< complex<db> >& a, bool reverse = false) {
 		}
 	}
 	if (reverse) {
-		vlop(i, y)a[i] /= n;
+		vlop(i, a)a[i] /= n;
 	}
 	return;
 }
