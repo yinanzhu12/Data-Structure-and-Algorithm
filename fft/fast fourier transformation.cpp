@@ -92,5 +92,5 @@ void fft(vector< complex<db> >& a, bool reverse = false) {
 	if (reverse) {
 		vlop(i, y)a[i] /= n;
 	}
-	return y;
+	return;
 }
