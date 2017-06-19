@@ -56,16 +56,23 @@ void precompute() {
 }
 
 /*fast fourier transform a polynomial with length=some power of two*/
-vector< complex<db> > fft(vector< complex<db> >& a, bool reverse = false) {
-	int n = sz(a), l = 0;
+void fft(vector< complex<db> >& a, bool reverse = false) {
+	int n = sz(a), l = 0,r;
 	int nt = n;
 	while (nt) {
 		l++;
 		nt /= 2;
 	}
 	l--;
-	vector< complex<db> > y = vector< complex<db> >(n);
-	vlop(i, y)y[i] = a[bitrev(i, l)];
+	vi visited(n, 0);
+	vlop(i, y) {
+		if (!visited[i]) {
+			r = bitrev(i, l);
+			swap( a[r],a[i]);
+			visited[i] = 1;
+			visited[r] = 1;
+		}
+	}
 	complex<db> root, omega, u, t;
 	lop(i, 0, l) {
 		int m = (1 << i);
@@ -74,16 +81,16 @@ vector< complex<db> > fft(vector< complex<db> >& a, bool reverse = false) {
 		for (int j = 0; j < n; j += m) {
 			omega = 1;
 			lop(k, 0, m / 2 - 1) {
-				t = omega*y[j + k + m / 2];
-				u = y[j + k];
-				y[j + k] = u + t;
-				y[j + k + m / 2] = u - t;
+				t = omega*a[j + k + m / 2];
+				u = a[j + k];
+				a[j + k] = u + t;
+				a[j + k + m / 2] = u - t;
 				omega *= root;
 			}
 		}
 	}
 	if (reverse) {
-		vlop(i, y)y[i] /= n;
+		vlop(i, y)a[i] /= n;
 	}
 	return y;
 }
