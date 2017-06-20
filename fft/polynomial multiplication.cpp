@@ -43,7 +43,16 @@ typedef set<long long> sll;
 #define lb(i,v) int(lower_bound(all(v),i)-v.begin())
 #define ub(i,v) int(upper_bound(all(v),i)-v.begin())
 const long double pi = acos(-1.0);
+vector< complex<db> > roots(25);
 
+void precompute() {
+	int m;
+	vlop(i, roots) {
+		m = 1 << i;
+		roots[i] = complex<db>(cos(2 * pi / m), sin(2 * pi / m));
+	}
+	return;
+}
 int bitrev(int n, int l) {
 	int r = 0;
 	lop(i, 0, l - 1) {
@@ -52,75 +61,63 @@ int bitrev(int n, int l) {
 	return r;
 }
 
-vector< complex<db> > transform(vll& a, int l, int r) {
-	int m = 1;
-	while (m < r - l + 1) m <<= 1;
-	vector< complex<db> > y;
-	y.resize(m, complex<db>(0, 0));
-	lop(i, l, r) y[i - l] = complex<db>(a[i], 0);
-	return y;
-}
-
-vll recover(vector< complex<db> >& a, int n) {
-	vll y(n);
-	vlop(i, y)y[i] = llround(a[i].real());
-	return y;
-}
-
-vector< complex<db> > fft(vector< complex<db> >& a, bool reverse = false) {
-	int n = sz(a), l = 0;
+void fft(vector< complex<db> >& a, bool reverse = false) {
+	int n = sz(a), l = 0, r;
 	int nt = n;
 	while (nt) {
 		l++;
 		nt /= 2;
 	}
 	l--;
-	vector< complex<db> > y = vector< complex<db> >(n);
-	vlop(i, y)y[i] = a[bitrev(i, l)];
-	complex<db> omegam, omega, u, t;
+	vi visited(n, 0);
+	vlop(i, a) {
+		if (!visited[i]) {
+			r = bitrev(i, l);
+			swap(a[r], a[i]);
+			visited[i] = 1;
+			visited[r] = 1;
+		}
+	}
+	complex<db> root, omega, u, t;
 	lop(i, 0, l) {
 		int m = (1 << i);
+		if (!reverse)root = roots[i];
+		else root = conj(roots[i]);
 		for (int j = 0; j < n; j += m) {
+			omega = 1;
 			lop(k, 0, m / 2 - 1) {
-				 if(reverse)omega = complex<db>(cos(2 * pi / m*k), -sin(2 * pi / m*k));
-				 else omega = complex<db>(cos(2 * pi / m*k), sin(2 * pi / m*k));
-				t = omega*y[j + k + m / 2];
-				u = y[j + k];
-				y[j + k] = u + t;
-				y[j + k + m / 2] = u - t;
+				t = omega*a[j + k + m / 2];
+				u = a[j + k];
+				a[j + k] = u + t;
+				a[j + k + m / 2] = u - t;
+				omega *= root;
 			}
 		}
 	}
 	if (reverse) {
-		vlop(i, y)y[i] /= n;
+		vlop(i, a)a[i] /= n;
 	}
-	return y;
+	return;
 }
 
 vll multiply(vll& p1, vll& p2, int l1, int r1, int l2, int r2) {
-	vector< complex<db> > cp1 = transform(p1, l1, r1), cp2 = transform(p2, l2, r2);
-	int n = max(sz(cp1), sz(cp2));
-	n *= 2;
-	cp1.resize(n,complex<db>(0,0));
-	cp2.resize(n,complex<db>(0,0));
-	vector< complex<db> > tcp1 = fft(cp1), tcp2 = fft(cp2), prod;
-	vlop(i, tcp1) tcp2[i] *= tcp1[i];
-	prod = fft(tcp2, true);
-	return recover(prod, r2 - l2 + r1 - l1 + 1);
+	int n = max(r1 - l1 + 1, r2 - l2 + 1) * 2;
+	vector< complex<db> > cp1(n, 0), cp2(n, 0);
+	lop(i, l1, r1)cp1[i - l1] = p1[i];
+	lop(i, l2, r2)cp2[i - l2] = p2[i];
+	fft(cp1);
+	fft(cp2);
+	vlop(i, cp1) cp2[i] *= cp1[i];
+	fft(cp2, true);
+	vll y;
+	lop(i, 0,r1-l1+r2-l2)y.pb(llround(cp2[i].real()));
+	return y;
 }
 
 int main() {
-	ifstream infile;
-	ofstream outfile;
-	infile.open("input.txt");
-	cin.rdbuf(infile.rdbuf());
-	outfile.open("output.txt");
-	cout.rdbuf(outfile.rdbuf());
-	vll p1(3), p2(3);
-	vlop(i, p1)cin >> p1[i];
-	vlop(i, p2)cin >> p2[i];
-	vll p3 = multiply(p1, p2, 0, 2, 0, 2);
-	printv(i, p3);
-	enter;
+	precompute();
+	vll p1, p2;
+	/*r1-l1+1 and r2-l2+1=power of two*/
+	multiply(p1, p2, l1, r1, l2, r2);
 	return 0;
 }
