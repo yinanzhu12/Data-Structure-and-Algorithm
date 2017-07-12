@@ -35,52 +35,27 @@ typedef vector<long long> vll;
 #define cisthere(c,x) (find(all(c),x) != (c).end())
 #define pb push_back
 #define enter cout<<endl
-
-/*return {s,t}, such that a*s+b*t=gcd(a,b)*/
-l4 euclidean(ll a, ll b) {
-	vll r = { a,b }, s = { 1,0 }, t = { 0,1 };
-	int i;
-	ll q;
-	while (true) {
-		i =sz(r) - 1;
-		r.pb(r[i - 1] % r[i]);
-		q = r[i - 1] / r[i];
-		s.pb(s[i - 1] - s[i] * q);
-		t.pb(t[i - 1] - t[i] * q);
-		if (!r.back())break;
-	}
-	i=sz(r)-2;
-	return l4(s[i],t[i]);
-}
-
-/*return a^-1 mod b (if gcd(a,b)=1)*/
 ll inverse(ll a, ll b) {
 	vll r = { a,b }, s = { 1,0 };
-	int i;
-	ll q;
 	while (true) {
-		i = sz(r) - 1;
+		int i = sz(r) - 1;
 		r.pb(r[i - 1] % r[i]);
-		q = r[i - 1] / r[i];
+		ll q = r[i - 1] / r[i];
 		s.pb(s[i - 1] - s[i] * q);
 		if (!r.back())break;
 	}
-	i = sz(r) - 2;
+	int i = sz(r) - 2;
 	if (s[i]<0)s[i] += b;
 	if (s[i] >= b)s[i] -= b;
 	return s[i];
 }
-
-/*gcd(a,b)*/
-ll gcd(ll a, ll b) {
-	vll r = { a,b };
-	int i;
-	while (true) {
-		i = sz(r) - 1;
-		r.pb(r[i - 1] % r[i]);
-		if (!r.back())break;
+/*return ans such that ans= a[i] mod n[i] for any i. n[i] have to be pairwise relative prime*/
+ll crt(vll& a, vll& n) {
+	ll ans=0,m,N=1;
+	vlop(i, n)N *= n[i];
+	vlop(i, a) {
+		m = N / n[i];
+		ans = ans + a[i] * m * inverse(m, n[i]);
 	}
-	i = sz(r) - 2;
-	return r[i];
+	return ans;
 }
-
