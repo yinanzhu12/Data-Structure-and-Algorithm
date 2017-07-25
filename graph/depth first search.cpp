@@ -41,7 +41,6 @@ void dfs(matrix(int)& alist, vi& tour, int root, vi& entry, vi& leave, vi& visit
 	entry[root] = sz(tour) - 1;
 	vlop(i, alist[root]) {
 		if (!visited[alist[root][i]]) {
-			dtoroot[alist[root][i]] = dtoroot[root] + 1;
 			dfs(alist, tour, alist[root][i], entry, leave, visited);
 			tour.pb(root);
 		}
