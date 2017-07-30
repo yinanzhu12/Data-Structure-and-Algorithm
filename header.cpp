@@ -55,6 +55,7 @@ vi prime={10781,11173,12251,12391,15511,106033,108301,112909,139967,139969};
 int main() {
 	/*for large input*/
 	ios::sync_with_stdio(false);
+	cin.tie(0);
 	
 	/* for reading .txt file*/
 	ifstream infile;
