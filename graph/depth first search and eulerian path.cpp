@@ -39,9 +39,9 @@ void dfs(matrix(int)& alist, vi& tour, int root, vi& entry, vi& leave, vi& visit
 	visited[root] = 1;
 	tour.pb(root);
 	entry[root] = sz(tour) - 1;
-	for(auto i: alist[root]) {
-		if (!visited[i]) {
-			dfs(alist, tour, i, entry, leave, visited);
+	for(auto child: alist[root]) {
+		if (!visited[child]) {
+			dfs(alist, tour, child, entry, leave, visited);
 			tour.pb(root);
 		}
 	}
