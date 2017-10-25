@@ -43,8 +43,7 @@ void bfs(matrix(int)& alist, vi& parent, vi& distance,int root) {
 	while (!q.empty()) {
 		int r = q.front();
 		q.pop();
-		vlop(i,alist[r]) {
-			int child = alist[r][i];
+		for(auto child:alist[r]) {
 			if (!visited[child]) {
 				q.push(child);
 				visited[child] = 1;
