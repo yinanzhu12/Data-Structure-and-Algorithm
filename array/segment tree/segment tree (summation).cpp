@@ -36,12 +36,12 @@ void initialize(int start, vi& stree, vi& level, int l, int u) {
 	return;
 }
 
-int rmq(int start, vi& stree, vi& level,int i, int j, int l, int u) {
+int rmq(int start, vi& stree,int i, int j, int l, int u) {
 	if (i > j)swap(i, j);
 	if (j<l || i>u)return 0;
 	if (l >= i&&u <= j)return stree[start];
-	int t1 = rmq(2 * start, stree, level, i, j, l, (u + l) / 2);
-	int t2 = rmq(2 * start + 1, stree, level, i, j, (u + l) / 2 + 1, u);
+	int t1 = rmq(2 * start, stree, i, j, l, (u + l) / 2);
+	int t2 = rmq(2 * start + 1, stree, i, j, (u + l) / 2 + 1, u);
 	return t2+t1;
 }
 
