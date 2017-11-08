@@ -39,16 +39,17 @@ void initialize(int start, vi& stree, vector<T>& level, int l, int u) {
 	return;
 }
 template <typename T> 
-void updatetree(int start, vi& stree, vector<T>& level, int index, T value, int l, int u) {
-	if (l == u) {
-		level[index] = value;
-		return;
-	}
-	if (index <= (l + u) / 2)updatetree(2 * start, stree, level, index, value, l, (l + u) / 2);
-	else updatetree(2 * start + 1, stree, level, index, value, (l + u) / 2 + 1, u);
-	if (level[stree[start * 2]] < level[stree[start * 2 + 1]])stree[start] = stree[start * 2];
-	else stree[start] = stree[start * 2 + 1];
-	return;
+int rmq(int start, vll& stree,vector<T>& level,int i, int j, int l, int u) {
+	if (i > j)swap(i, j);
+	if (j<l || i>u)return -1;
+	if (l >= i&&u <= j)return stree[start];
+	int t1 = rmq(2 * start, stree, level, i, j, l, (u + l) / 2);
+	int t2 = rmq(2 * start + 1, stree, level, i, j, (u + l) / 2 + 1, u);
+	if (t1 == -1)return t2;
+	if (t2 == -1)return t1;
+	/*change < to > for maximum querry*/
+	if (level[t1] < level[t2])return t1;
+	return t2;
 }
 
 template <typename T>
