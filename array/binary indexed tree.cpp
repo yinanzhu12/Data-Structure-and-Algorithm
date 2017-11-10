@@ -24,11 +24,7 @@ typedef vector<long long> vll;
 #define sz(a) int((a).size()) 
 #define ite(v) v::iterator
 #define lop(i,a,b) for (int i=a; i<=b; i++)
-#define vlop(i,v) lop(i,0,sz(v)-1)
-#define vlop1(i,v) lop(i,1,sz(v)-1)
 #define rlop(i,a,b) for (int i=b; i>=a; i--)
-#define vrlop(i,v) rlop(i,0,sz(v)-1)
-#define vrlop1(i,v) rlop(i,1,sz(v)-1)
 #define printv(i,v) vlop(i,v)cout<<v[i]<<" "
 #define all(s) (s).begin(),(s).end()
 #define isthere(c,x) ((c).find(x) != (c).end()) 
@@ -62,12 +58,12 @@ template<typename T>
 void initialize(vector<T>& bitree, vector<T>& freq,bool cum) {
 	bitree.resize(sz(freq),0);
 	if (cum) {
-		vlop1(i, freq){
+		lop(i,1,sz(freq)-1){
 			if(freq[i]-freq[i-1])update(i, freq[i] - freq[i - 1], bitree);
 		}
 		return;
 	}
-	vlop(i, freq){
+	lop(i,1,sz(freq)-1){
 	        if(freq[i])update(i, freq[i], bitree);
 	}
 	return;
