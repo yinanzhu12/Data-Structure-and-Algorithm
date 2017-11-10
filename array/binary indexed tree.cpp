@@ -37,8 +37,9 @@ typedef vector<long long> vll;
 #define enter cout<<endl
 
 /*read cumulative frequency of index i*/
-int cumfreq(int i,vi& bitree) {
-	int r = 0;
+template<typename T>
+T cumfreq(int i,vector<T>& bitree) {
+	T r = 0;
 	while (i) {
 		r += bitree[i];
 		i -= (i&-i);
@@ -47,7 +48,8 @@ int cumfreq(int i,vi& bitree) {
 }
 
 /*update the tree when the i-index element of marginal frequency list changed value by v, this function DO NOT update frequency list*/
-void updatetree(int i, int v, vi& bitree) {
+template<typename T>
+void updatetree(int i, int v, vector<T>& bitree) {
 	while (i <sz(bitree)) {
 		bitree[i] += v;
 		i += (i&-i);
@@ -56,7 +58,8 @@ void updatetree(int i, int v, vi& bitree) {
 }
 
 /*cum=true if the frequency is cumulative*/
-void initialize(vi& bitree, vi& freq,bool cum) {
+template<typename T>
+void initialize(vector<T>& bitree, vector<T>& freq,bool cum) {
 	bitree.resize(sz(freq),0);
 	if (cum) {
 		vlop1(i, freq){
@@ -73,5 +76,5 @@ void initialize(vi& bitree, vi& freq,bool cum) {
 int main() {
 	/*frequency list STARTs FROM 1,freq[0]=0,bitree starts off empty*/
 	vi bitree,freq(n+1,0);
-	initialize(bitree, freq, true);
+	initialize<int>(bitree, freq, true);
 }
