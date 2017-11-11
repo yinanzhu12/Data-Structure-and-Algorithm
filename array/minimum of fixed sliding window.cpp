@@ -37,7 +37,8 @@ typedef vector<long long> vll;
 #define fill(s,v) memset(s,v,sizeof(s))
 #define enter cout<<endl
 
-void initialize(deque<ll>& ascendmin, vll& array, int start, int end) {
+template<typename T>
+void initialize(deque<T>& ascendmin, vector<T>& array, int start, int end) {
 	ascendmin.push_front(array[end]);
 	rlop(i, start, end - 1) {
 		if (array[i] <= ascendmin.front())ascendmin.push_front(array[i]);
@@ -45,7 +46,8 @@ void initialize(deque<ll>& ascendmin, vll& array, int start, int end) {
 	return;
 }
 
-void moveright(deque<ll>& ascendmin, vll& array, int& cleft, int& cright) {
+template<typename T>
+void moveright(deque<T>& ascendmin, vector<T>& array, int& cleft, int& cright) {
 	while (!ascendmin.empty()) {
 		if (ascendmin.back()>array[cright + 1])ascendmin.pop_back();
 		else break;
