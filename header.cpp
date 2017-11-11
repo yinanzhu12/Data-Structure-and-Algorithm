@@ -30,11 +30,7 @@ typedef set<long long> sll;
 #define matrix(a) vector< vector<a> >
 #define sz(a) int((a).size()) 
 #define lop(i,a,b) for (int i=a; i<=b; i++)
-#define vlop(i,v) lop(i,0,sz(v)-1)
-#define vlop1(i,v) lop(i,1,sz(v)-1)
 #define rlop(i,a,b) for (int i=b; i>=a; i--)
-#define vrlop(i,v) rlop(i,0,sz(v)-1)
-#define vrlop1(i,v) rlop(i,1,sz(v)-1)
 #define all(s) (s).begin(),(s).end()
 #define pb push_back
 #define enter cout<<'\n'
