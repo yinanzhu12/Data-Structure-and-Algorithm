@@ -45,7 +45,7 @@ const long long M;
 vll fact, invfact;
 
 
-ll euclidean(ll a, ll b) {
+ll inverse(ll a, ll b) {
 	vll r = { a,b };
 	vll s = { 1,0 };
 	while (true) {
