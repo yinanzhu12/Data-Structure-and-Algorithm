@@ -39,7 +39,7 @@ void initialize(int start, vi& stree, vector<T>& level, int l, int u) {
 	return;
 }
 template <typename T> 
-int rmq(int start, vll& stree,vector<T>& level,int i, int j, int l, int u) {
+int rmq(int start, vi& stree,vector<T>& level,int i, int j, int l, int u) {
 	if (i > j)swap(i, j);
 	if (j<l || i>u)return -1;
 	if (l >= i&&u <= j)return stree[start];
