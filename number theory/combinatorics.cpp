@@ -37,7 +37,7 @@ typedef vector<long long> vll;
 #define enter cout<<endl
 
 /*max number to compute series up to*/
-const long long inf;
+const int inf;
 
 /*number to mod big number, if needed*/
 const long long M;
@@ -63,7 +63,7 @@ ll euclidean(ll a, ll b) {
 void factorio() {
 	fact.resize(inf + 1, 1);
 	invfact.resize(inf + 1, 1);
-	vlop1(i, fact) {
+	lop1(i,2, inf) {
 		fact[i] = fact[i - 1] * i%M;
 		invfact[i] = euclidean(fact[i], M);
 	}
