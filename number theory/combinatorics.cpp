@@ -55,9 +55,9 @@ ll inverse(ll a, ll b) {
 void factorio() {
 	fact.resize(inf + 1, 1);
 	invfact.resize(inf + 1, 1);
-	lop1(i,2, inf) {
+	lop(i,2, inf) {
 		fact[i] = fact[i - 1] * i%M;
-		invfact[i] = euclidean(fact[i], M);
+		invfact[i] = inverse(fact[i], M);
 	}
 	return;
 }
