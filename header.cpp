@@ -63,9 +63,9 @@ int main() {
 	ifstream infile;
 	ofstream outfile;
 	infile.open("input.txt");
-	cin.rdbuf(infile.rdbuf());
+	/*cin.rdbuf(infile.rdbuf());*/
 	outfile.open("output.txt");
-	cout.rdbuf(outfile.rdbuf());
+	/*cout.rdbuf(outfile.rdbuf());*/
 
 	/*output with k digits after decimal*/
 	cout<<setprecision(k)<<fixed;
