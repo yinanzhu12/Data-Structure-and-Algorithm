@@ -3,63 +3,51 @@
 #include<vector>
 using namespace std;
 
-void maintain(vector<int>::iterator h, int root, int size) {
-	int left = 2 * root;
-	int right = 2 * root + 1;
-	int t;
-	if (left>size)return;
-	else if (left == size) {
-		if (h[left]<h[root]) {
-			t = h[root];
-			h[root] = h[left];
-			h[left] = t;
-		}
+#define sz(a) int(a.size())
+
+/*a min heap*/
+void maintain(vector<int>& h, int root) {
+	int left = 2 * root,right = 2 * root + 1,n=sz(h);
+	if (left>n)return;
+	else if (left ==n) {
+		if (h[left]<h[root]) swap(h[left],h[root])
 		else return;
 	}
 	else {
 		if (h[root]<=h[left] && h[root]<=h[right])return;
 		else if (h[root]>h[left]) {
-			t = h[root];
-			h[root] = h[left];
-			h[left] = t;
-			if (h[root]>h[right]) {
-				t = h[root];
-				h[root] = h[right];
-				h[right] = t;
+			if(h[root]<=h[right]){
 			}
-			maintain(h, left, size);
-			maintain(h, right, size);
+			swap(h[root],h[left])
+			if (h[root]>h[right]) swap(h[root],h[right]);
+			maintain(h, left);
+			maintain(h, right);
 		}
 		else {
-			t = h[root];
-			h[root] = h[right];
-			h[right] = t;
-			maintain(h, right, size);
+			swap(h[root],h[right])
+			maintain(h, right);
 		}
 	}
 	return;
 }
 
-void buildheap(vector<int>::iterator h, int size) {
-	for (int i = size / 2; i >= 1; i--) {
-		maintain(h, i, size);
-	}
+void buildheap(vector<int>& h) {
+	int n=sz(h);
+	for (int i = n / 2; i >= 1; i--)maintain(h, i);
 	return;
 }
 
-void changekey(vector<int>::iterator h, int change, int newkey, int size) {
-	if (newkey>h[change]) {
-		h[change] = newkey;
-		maintain(h, change, size);
+void changekey(vector<int>& h, int index, int newkey) {
+	int n=sz(h);
+	if (newkey>h[index]) {
+		h[index] = newkey;
+		maintain(h, index);
 	}
 	else {
-		h[change] = newkey;
-		while (change>1 && h[change]<h[change / 2]) {
-			int t;
-			t = h[change];
-			h[change] = h[change / 2];
-			h[change / 2] = t;
-			change = change / 2;
+		h[index] = newkey;
+		while (index>1 && h[index]<h[index / 2]) {
+			swap(h[index],h[index/2])
+			index /= 2;
 		}
 	}
 	return;
