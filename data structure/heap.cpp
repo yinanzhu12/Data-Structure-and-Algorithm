@@ -1,100 +1,98 @@
-#include <iostream>
+#include <cmath>
+#include <vector>
+#include <set>
+#include <map>
+#include <stack>
+#include <queue>
+#include <deque>
+#include <string>
 #include <fstream>
-#include<vector>
+#include <iostream>
+#include <algorithm>
+#include <iomanip>
+#include <numeric>
+
 using namespace std;
 
-#define sz(a) int(a.size())
+typedef vector<int> vi;
+typedef pair<int, int> ii;
+typedef long long ll;
+typedef pair<long long, long long> l4;
+typedef vector<long long> vll;
+typedef double db;
+typedef vector<double> vdb;
+typedef pair<double, double> dd;
+typedef set<int> si;
+typedef set<long long> sll;
+#define fi first
+#define se second
+#define matrix(a) vector< vector<a> >
+#define sz(a) int((a).size()) 
+#define lop(i,a,b) for (int i=a; i<=b; i++)
+#define rlop(i,a,b) for (int i=b; i>=a; i--)
+#define all(s) (s).begin(),(s).end()
+#define pb push_back
+#define enter cout<<'\n'
+#define lb(i,v) int(lower_bound(all(v),i)-v.begin())
+#define ub(i,v) int(upper_bound(all(v),i)-v.begin())
 
 /*a min heap*/
-void maintain(vector<int>& h, int root) {
-	int left = 2 * root,right = 2 * root + 1,n=sz(h);
+template<typename T>
+void maintain(vector<T>& h, int root) {
+	int left = 2 * root,right = 2 * root + 1,n=sz(h)-1;
 	if (left>n)return;
-	else if (left ==n) {
+	if (left ==n) {
 		if (h[left]<h[root]) swap(h[left],h[root])
-		else return;
+		return;
 	}
-	else {
-		if (h[root]<=h[left] && h[root]<=h[right])return;
-		else if (h[root]>h[left]) {
-			if(h[root]<=h[right]){
-			}
-			swap(h[root],h[left])
-			if (h[root]>h[right]) swap(h[root],h[right]);
-			maintain(h, left);
-			maintain(h, right);
-		}
-		else {
-			swap(h[root],h[right])
-			maintain(h, right);
-		}
-	}
+	else if (h[root]<=h[left] && h[root]<=h[right])return;
+	int min_index;
+	if (h[left] <= h[right]&&h[left]<=h[root])min_index = left;
+	else min_index = right;
+	swap(h[root], h[min_index])maintain<T>(h, min_index);
 	return;
 }
 
-void buildheap(vector<int>& h) {
-	int n=sz(h);
-	for (int i = n / 2; i >= 1; i--)maintain(h, i);
+template<typename T>
+void buildheap(vector<T>& h) {
+	int n=sz(h)-1;
+	for (int i = n / 2; i >= 1; i--)maintain<T>(h, i);
 	return;
 }
 
-void changekey(vector<int>& h, int index, int newkey) {
-	int n=sz(h);
+template<typename T>
+void changekey(vector<T>& h, int index, T newkey) {
+	int n=sz(h)-1;
 	if (newkey>h[index]) {
 		h[index] = newkey;
-		maintain(h, index);
+		maintain<T>(h, index);
 	}
 	else {
 		h[index] = newkey;
 		while (index>1 && h[index]<h[index / 2]) {
-			swap(h[index],h[index/2])
+			swap(h[index], h[index / 2]);
 			index /= 2;
 		}
 	}
 	return;
 }
 
-int minimum(vector<int>::iterator h) {
-	return h[1];
+template<typename T>
+void pop_minimum(vector<T>& h) {
+	if (sz(h) < 2)return;
+	swap(h[i], h[sz(h) - 1]);
+	h.pop_back();
+	maintain(h, 1);
+	return;
 }
 
-int main() {
-	ifstream infile;
-	infile.open("input.txt");
-	cin.rdbuf(infile.rdbuf());
-	ofstream outfile;
-	outfile.open("output.txt");
-	cout.rdbuf(outfile.rdbuf());
-	int q;
-	cin >> q;
-	vector<int> heap;
-	heap.push_back(0);
-	int max = 1000000000;
-	for (int i = 0; i<q; i++) {
-		int a;
-		cin >> a;
-		if (a == 1) {
-			int b;
-			cin >> b;
-			heap.push_back(max);
-			changekey(heap.begin(), heap.size() - 1, b, heap.size() - 1);
-		}
-		else if (a == 2) {
-			int b;
-			cin >> b;
-			for (int j = 1; j <= heap.size() - 1; j++) {
-				if (heap[j] == b) {
-					int t = heap[j];
-					heap[j] = heap[heap.size() - 1];
-					heap[heap.size() - 1] = t;
-					heap.pop_back();
-					if (heap.size() != 1)maintain(heap.begin(), j, heap.size() - 1);
-					break;
-				}
-			}
-		}
-		else {
-			cout <<minimum(heap.begin())<< endl;
-		}
+template<typename T>
+void insert(vector<T>& h, T key) {
+	h.pb(key);
+	int index = sz(h) - 1;
+	while (index>1 && h[index]<h[index / 2]) {
+		swap(h[index], h[index / 2]);
+		index /= 2;
 	}
-	return 0;
+	return;
 }
