@@ -58,7 +58,7 @@ public:
 		this->left->add(n, currentdigit - 1);
 		return;
 	}
-	void remov(ll n, int currentdigit=maxdigit) {
+	void erase(ll n, int currentdigit=maxdigit) {
 		if (!currentdigit) {
 			(this->count)--;
 			return;
