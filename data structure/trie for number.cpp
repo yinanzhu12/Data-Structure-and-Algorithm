@@ -44,7 +44,7 @@ public:
 	bool empty() {
 		return this->right == nullptr && this->left == nullptr && this->count == 0;
 	}
-	void add(ll n, int currentdigit) {
+	void add(ll n, int currentdigit=maxdigit) {
 		if (!currentdigit) {
 			(this->count)++;
 			return;
@@ -58,7 +58,7 @@ public:
 		this->left->add(n, currentdigit - 1);
 		return;
 	}
-	void remov(ll n, int currentdigit) {
+	void remov(ll n, int currentdigit=maxdigit) {
 		if (!currentdigit) {
 			(this->count)--;
 			return;
@@ -86,5 +86,14 @@ public:
 		}
 		if (this->right != nullptr) return (1LL << (currentdigit - 1)) + this->right->maxxor(n, currentdigit - 1);
 		return this->left->maxxor(n, currentdigit - 1);
+	}
+	int search(ll n,int currentdigit=maxdigit){
+	    if (!currentdigit) return this->count;
+		if (n&(1LL << (currentdigit - 1))) {
+			if (this->right == nullptr)return 0;
+			return this->right->search(n, currentdigit-1);
+		}
+		if (this->left == nullptr)return 0;
+		return this->left->search(n,currentdigit-1);
 	}
 };
