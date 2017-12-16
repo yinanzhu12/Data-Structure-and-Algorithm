@@ -53,7 +53,7 @@ public:
 		prefixes = 0;
 		edges = vector<trie*>(range, nullptr);
 	}
-	void add(string& s,int pos) {
+	void add(string& s,int pos=0) {
 		if (pos==sz(s)) {
 			this->words += 1;
 			return;
@@ -64,7 +64,7 @@ public:
 		this->edges[c]->add(s,pos+1);
 		return;
 	}
-	int countword(string& s,int pos) {
+	int countword(string& s,int pos=0) {
 		if (pos==sz(s)) return this->words;
 		else {
 			int c = s[pos]-start;
@@ -72,8 +72,8 @@ public:
 			else return this->edges[c]->countword(s,pos+1)
 		}
 	}
-	int countprefix(string& p,int pos) {
-		if (pos==sz(s)) return this->prefixes;
+	int countprefix(string& p,int pos=0) {
+		if (pos==sz(p)) return this->prefixes;
 		else {
 			int c = p[pos] - start;
 			if (this->edges[c] == nullptr) return 0;
