@@ -45,7 +45,7 @@ T cumfreq(int i,vector<T>& bitree) {
 
 /*update the tree when the i-index element of marginal frequency list changed value by v, this function DO NOT update frequency list*/
 template<typename T>
-void updatetree(int i, int v, vector<T>& bitree) {
+void updatetree(int i, T v, vector<T>& bitree) {
 	while (i <sz(bitree)) {
 		bitree[i] += v;
 		i += (i&-i);
