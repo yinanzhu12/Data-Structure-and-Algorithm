@@ -40,21 +40,21 @@ typedef set<long long> sll;
 
 void dfs1(matrix(int)& alist, int root, vi& dtoroot, vi& visited) {
 	visited[root] = 1;
-	vlop(i, alist[root]) {
-		if (!visited[alist[root][i]]) {
-			dtoroot[alist[root][i]] = dtoroot[root] + 1;
-			dfs1(alist, alist[root][i], dtoroot, visited);
+	for(auto child:alist[root]){
+		if (!visited[child]) {
+			dtoroot[child] = dtoroot[root] + 1;
+			dfs1(alist, child, dtoroot, visited);
 		}
 	}
 	return;
 }
 void dfs2(matrix(int)& alist, int root, vi& dtoroot, vi& parent, vi& visited) {
 	visited[root] = 1;
-	vlop(i, alist[root]) {
-		if (!visited[alist[root][i]]) {
-			parent[alist[root][i]] = root;
-			dtoroot[alist[root][i]] = dtoroot[root] + 1;
-			dfs2(alist, alist[root][i], dtoroot, parent, visited);
+	for(auto child: alist[root]) {
+		if (!visited[child]) {
+			parent[child] = root;
+			dtoroot[child] = dtoroot[root] + 1;
+			dfs2(alist, child, dtoroot, parent, visited);
 		}
 	}
 	return;
@@ -65,7 +65,7 @@ ii dia(matrix(int)& alist) {
 	dfs1(alist, 1, dtoroot, visited);
 	int far = 1;
 	/*choose one end of diameter*/
-	vlop1(i, dtoroot) {
+	lop(i,1,n) {
 		if (dtoroot[i]>dtoroot[far])far = i;
 	}
 	vlop(i, visited)visited[i] = 0;
@@ -74,7 +74,7 @@ ii dia(matrix(int)& alist) {
 	dtoroot[far] = 0;
 	dfs2(alist, far, dtoroot, parent, visited);
 	/*select the other end of diameter*/
-	vlop1(i, dtoroot) {
+	lop(i, 1,n) {
 		if (dtoroot[i]>dtoroot[far])far = i;
 	}
 	int dia = dtoroot[far], center = far;
