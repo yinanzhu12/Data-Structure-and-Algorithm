@@ -47,8 +47,8 @@ int main() {
 	string a, b;
 	int m = sz(a), n = sz(b);
 	matrix(int) dp(m + 1, vi(n + 1, 0)),direction(m+1,vi(n+1,0));
-	vlop1(i, dp) {
-		vlop1(j, dp[i]) {
+	lop(i, 1,m) {
+		lop(j, 1,n) {
 			if (a[i - 1] == ar[j - 1]) {
 				dp[i][j] = dp[i - 1][j - 1] + 1;
 				direction[i][j] = 2; 
