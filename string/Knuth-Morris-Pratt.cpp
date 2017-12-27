@@ -34,7 +34,8 @@ typedef vector<long long> vll;
 #define enter cout<<'\n'
 
 void failure(vi& f, string& s) {
-	vlop1(i, s) {
+	int n=sz(s);
+	lop(i, 1,n-1) {
 		int t = f[i-1];
 		while (true) {
 			if (s[i] == s[t]) {
@@ -53,8 +54,8 @@ void failure(vi& f, string& s) {
 }
 
 void findsubstring(vi& st,vi& ft,string& s,string& t){
-    int success=0;
-    vlop(i,s){
+    int success=0,n=sz(s);
+    lop(i,0,n-1){
         if(success==sz(t))success=ft.back();
         if(s[i]==t[success])success++;
         else{
@@ -72,7 +73,7 @@ void findsubstring(vi& st,vi& ft,string& s,string& t){
 }
 
 void dfs(matrix(int)& alist, int root, vi& count, vi& subtreesum) {
-	vlop(i, alist[root]) {
+	for(auto child: alist[root]) {
 		dfs(alist, alist[root][i], count,subtreesum);
 		subtreesum[root]+=subtreesum[alist[root][i]];
 	}
