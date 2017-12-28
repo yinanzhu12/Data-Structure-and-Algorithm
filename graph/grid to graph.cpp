@@ -41,39 +41,27 @@ typedef set<long long> sll;
 #define enter cout<<'\n'
 #define lb(i,v) int(lower_bound(all(v),i)-v.begin())
 #define ub(i,v) int(upper_bound(all(v),i)-v.begin())
-int n0,n1,n,m;
-int tonode(int i, int j) {
-	return (i - 1)*m + j;
+int n,m;
+vi movei={1,-1,0,0};
+vi movej={0,0,1,-1};
+bool inboard(int i,int j){
+    return i<=n && i>=1 && j<=m && j>=1;
 }
-
 int main() {
-	/*turn a grid with row 1,...,n, coloumn 1,...,m into an undirected graph where two adjacent grid are connected
-	iff both are marked zero*/
-	matrix(int) alist(n*m + 1),grid(n+2,vi(m+2));
-	lop(i, 1, n ) {
-		lop(j, 1, m ) {
-			if (!grid[i][j]) {
-				n0 = tonode(i, j, m);
-				if (!grid[i - 1][j]&&i-1>=1) {
-					int n1 = tonode(i - 1, j, m);
-					alist[n1].pb(n0);
-					alist[n0].pb(n1);
-				}
-				if (!grid[i + 1][j]&&i+1<=n) {
-					int n1 = tonode(i + 1, j, m);
-					alist[n1].pb(n0);
-					alist[n0].pb(n1);
-				}
-				if (!grid[i][j - 1]&&j-1>=0) {
-					int n1 = tonode(i, j - 1, m);
-					alist[n1].pb(n0);
-					alist[n0].pb(n1);
-				}
-				if (!grid[i][j + 1]&&j+1<=m) {
-					int n1 = tonode(i, j + 1, m);
-					alist[n1].pb(n0);
-					alist[n0].pb(n1);
-				}
+	/*turn a grid with row 1,...,n, coloumn 1,...,m into an undirected graph where two adjacent grid are connected*/
+	matrix(int) alist(n*m + 1);
+	matrix(int) id(n,vi(m));
+        int count=1;
+        lop(i,1,n){
+		lop(j,1,m){
+			id[i][j]=count;
+                        count++;
+		}
+	}
+        lop(i,0,n-1){
+		lop(j,0,m-1){
+			lop(k,0,3){
+				if(inboard(i+movei[k],j+movej[k]))alist[id[i][j]].pb(id[i+movei[k]][j+movej[k]]);
 			}
 		}
 	}
