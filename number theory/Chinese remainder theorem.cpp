@@ -52,8 +52,8 @@ ll inverse(ll a, ll b) {
 /*return ans such that ans= a[i] mod n[i] for any i. n[i] have to be pairwise relative prime*/
 ll crt(vll& a, vll& n) {
 	ll ans=0,m,N=1;
-	vlop(i, n)N *= n[i];
-	vlop(i, a) {
+	for(auto i: n)N *= i;
+	lop(i,0, sz(a)-1) {
 		m = N / n[i];
 		ans = ans + a[i] * m * inverse(m, n[i]);
 	}
