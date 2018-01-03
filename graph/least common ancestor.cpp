@@ -65,9 +65,9 @@ void dfs(matrix(int)& alist, vi& tour, int root, vi& entry, vi& level, vi& visit
 	tour.pb(root);
 	level.pb(currentlevel);
 	entry[root] = sz(tour) - 1;
-	vlop(i, alist[root]) {
-		if (!visited[alist[root][i]]) {
-			dfs(alist, tour, alist[root][i], entry,level, visited,currentlevel+1);
+	for(auto child: alist[root]) {
+		if (!visited[child]) {
+			dfs(alist, tour, child, entry,level, visited,currentlevel+1);
 			tour.pb(root);
 			level.pb(currentlevel);
 		}
