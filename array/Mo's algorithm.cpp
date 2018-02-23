@@ -85,11 +85,11 @@ int main() {
 	matrix(querry) block;
 	if (sqn*sqn == n)block.resize(sqn);
 	else block.resize(sqn + 1);
-	vlop(i, q) block[q[i].l%sqn].pb(q1);
-	vlop(i, block)sort(all(block[i]), comparequerry);
+	lop(i, 0,m-1) block[q[i].l%sqn].pb(q[i]);
+	lop(i, 0,sz(block)-1)sort(all(block[i]), comparequerry);
 	int wl = 0, wr = 0,nl,nr;
-	vlop(i, block) {
-		vlop(j, block[i]) {
+	lop(i, 0,sz(block)-1) {
+		lop(j,0, sz(block[i])-1) {
 			nl = block[i][j].l, nr = block[i][j].r;
 			move(wl, wr, nl, nr, v);
 			/*...*/
