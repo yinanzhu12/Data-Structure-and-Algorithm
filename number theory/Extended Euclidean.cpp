@@ -73,6 +73,8 @@ ll inverse(ll a, ll b) {
 
 /*gcd(a,b)*/
 ll gcd(ll a, ll b) {
+	if(!a)return b;
+	if(!b)return a;
 	vll r = { a,b };
 	int i;
 	while (true) {
