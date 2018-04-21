@@ -27,11 +27,7 @@ typedef set<long long> sll;
 #define matrix(a) vector< vector<a> >
 #define sz(a) int((a).size()) 
 #define lop(i,a,b) for (int i=a; i<=b; i++)
-#define vlop(i,v) lop(i,0,sz(v)-1)
-#define vlop1(i,v) lop(i,1,sz(v)-1)
 #define rlop(i,a,b) for (int i=b; i>=a; i--)
-#define vrlop(i,v) rlop(i,0,sz(v)-1)
-#define vrlop1(i,v) rlop(i,1,sz(v)-1)
 #define printv(i,v) vlop(i,v)cout<<v[i]<<" "
 #define printv1(i,v) vlop1(i,v)cout<<v[i]<<" "
 #define all(s) (s).begin(),(s).end()
@@ -48,14 +44,14 @@ int augmentpath(matrix(int)& resmatrix,matrix(int)& reslist, int source, int sin
 	while (!q.empty()) {
 		int r = q.front();
 		q.pop();
-		vlop(i, reslist[r]) {
-			int child = reslist[r][i];
+		for(auto child: reslist[r]) {
 			if (!visited[child]&&resmatrix[r][child]) {
 				q.push(child);
 				visited[child] = 1;
 				parent[child] = r;
 				foundsink = (child == sink);
 			}
+			if (foundsink)break;
 		}
 		if (foundsink)break;
 	}
