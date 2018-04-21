@@ -27,15 +27,8 @@ typedef set<long long> sll;
 #define matrix(a) vector< vector<a> >
 #define sz(a) int((a).size()) 
 #define lop(i,a,b) for (int i=a; i<=b; i++)
-#define vlop(i,v) lop(i,0,sz(v)-1)
-#define vlop1(i,v) lop(i,1,sz(v)-1)
 #define rlop(i,a,b) for (int i=b; i>=a; i--)
-#define vrlop(i,v) rlop(i,0,sz(v)-1)
-#define vrlop1(i,v) rlop(i,1,sz(v)-1)
-#define printv(i,v) vlop(i,v)cout<<v[i]<<" "
-#define printv1(i,v) vlop1(i,v)cout<<v[i]<<" "
 #define all(s) (s).begin(),(s).end()
-#define isthere(c,x) ((c).find(x) != (c).end())
 #define pb push_back
 #define enter cout<<'\n'
 
@@ -50,14 +43,14 @@ int augmentpath(matrix(int)& amatrix,matrix(int)& udlist, int source, int sink) 
 	while (!q.empty()) {
 		int r = q.front();
 		q.pop();
-		vlop(i, udlist[r]) {
-			int child = udlist[r][i];
+		for(auto child: udlist[r]) {
 			if (!visited[child] && amatrix[r][child]) {
 				q.push(child);
 				visited[child] = 1;
 				parent[child] = r;
 				foundsink = (child == sink);
 			}
+			if (foundsink)break;
 		}
 		if (foundsink)break;
 	}
