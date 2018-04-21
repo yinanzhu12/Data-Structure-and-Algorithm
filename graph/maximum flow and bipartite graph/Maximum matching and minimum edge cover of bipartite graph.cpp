@@ -48,14 +48,14 @@ int augmentpath(matrix(int)& resmatrix, matrix(int)& reslist, int source, int si
 	while (!q.empty()) {
 		int r = q.front();
 		q.pop();
-		vlop(i, reslist[r]) {
-			int child = reslist[r][i];
+		for(auto child: reslist[r]) {
 			if (!visited[child] && resmatrix[r][child]) {
 				q.push(child);
 				visited[child] = 1;
 				parent[child] = r;
 				foundsink = (child == sink);
 			}
+			if (foundsink)break;
 		}
 		if (foundsink)break;
 	}
