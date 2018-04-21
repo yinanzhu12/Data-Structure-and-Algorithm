@@ -85,6 +85,6 @@ int main() {
 	matrix(int) resmatrix = amatrix;
 	matrix(int) udlist; /*an UNDERIECTED adjacecy list version of residue*/
 	int source, sink;
-	int mf=maxflow(resmatrix, udlist,source, sink); /*return the maximum flow (also the capcity of the mininum cut),
+	int mf=maxflow(resmatrix, udlist,source, sink); /*return the maximum flow (also the capcity of the mininum cut given source and sink),
     residue will become the adjacency matrix residue network*/
 }
