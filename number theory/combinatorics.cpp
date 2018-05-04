@@ -63,10 +63,12 @@ void factorio() {
 }
 
 ll comb(int a, int b) {
+	if(a<0||b<0||a<b) return 0;
 	return fact[a] * invfact[a - b] % M*invfact[b] % M;
 }
 
 ll perm(int a, int b) {
+	if(a<0||b<0||a<b) return 0;
 	return fact[a] * invfact[a - b] % M;
 }
 
