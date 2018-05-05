@@ -45,15 +45,6 @@ string Alp="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 string digit="0123456789";
 vi prime={10781,11173,12251,12391,15511,106033,108301,112909,139967,139969};
 
-/*to print vector a, use for_each(all(a),display<data type>())*/
-template <typename T>
-class display{
-    public:
-    void operator()(T& a){
-        cout<<a<<" ";
-    }
-};
-
 int main() {
 	/*for large input*/
 	ios::sync_with_stdio(false);
@@ -66,7 +57,10 @@ int main() {
 	/*cin.rdbuf(infile.rdbuf());*/
 	outfile.open("output.txt");
 	/*cout.rdbuf(outfile.rdbuf());*/
-
+        
+	for_each(all(a),[](int& element){cin>>element;});
+        for_each(all(a),[](int& element){cout<<element<<" ";});
+	
 	/*output with k digits after decimal*/
 	cout<<setprecision(k)<<fixed;
 	
