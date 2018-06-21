@@ -85,7 +85,7 @@ void djs(int source) {
 	return;
 }
 
-int singledjs(int dest,int source) {
+int singledjs(int source,int dest) {
 	int n = sz(alist) - 1,arrive, node;
 	vi visited(n + 1, 0), stree, key(n + 1,inf);
 	key[source] = 0;
