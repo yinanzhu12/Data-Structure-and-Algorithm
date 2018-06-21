@@ -40,7 +40,7 @@ typedef set<long long> sll;
 
 /*must be greater than the SUM of all edges*/
 const int inf = 1000000000;
-matrix(int) alist;
+matrix(ii) alist;
 vi d;
 template <typename T>
 void initialize(int start, vi& stree, vector<T>& level, int l, int u) {
@@ -85,7 +85,7 @@ void djs(int source) {
 	return;
 }
 
-int singledjs(int dest) {
+int singledjs(int dest,int source) {
 	int n = sz(alist) - 1,arrive, node;
 	vi visited(n + 1, 0), stree, key(n + 1,inf);
 	key[source] = 0;
