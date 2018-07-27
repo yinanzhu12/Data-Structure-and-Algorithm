@@ -53,11 +53,17 @@ int main() {
 	/* for reading .txt file*/
 	ifstream infile;
 	ofstream outfile;
+	auto cout_buff = cout.rdbuf();
+        auto cin_buff=cin.rdbuf();
 	infile.open("input.txt");
-	/*cin.rdbuf(infile.rdbuf());*/
+	cin.rdbuf(infile.rdbuf());
 	outfile.open("output.txt");
-	/*cout.rdbuf(outfile.rdbuf());*/
+	cout.rdbuf(outfile.rdbuf());
         
+	/*redirect cin cout*/
+	cin.rdbuf(cin_buff);
+	cout.rdbuf(cout_buff);
+	
 	for_each(all(a),[](int& element){cin>>element;});
         for_each(all(a),[](int& element){cout<<element<<" ";});
 	
