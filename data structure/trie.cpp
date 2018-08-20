@@ -55,29 +55,29 @@ public:
 	}
 	void add(string& s,int pos=0) {
 		if (pos==sz(s)) {
-			this->words += 1;
+			words += 1;
 			return;
 		}
 		this->prefixes += 1;
 		int c = s[pos] - start;
-		if (this->edges[c] == nullptr) this->edges[c] = new trie;
-		this->edges[c]->add(s,pos+1);
+		if (edges[c] == nullptr) edges[c] = new trie;
+		edges[c]->add(s,pos+1);
 		return;
 	}
 	int countword(string& s,int pos=0) {
-		if (pos==sz(s)) return this->words;
+		if (pos==sz(s)) return words;
 		else {
 			int c = s[pos]-start;
-			if (this->edges[c] == nullptr) return 0;
-			else return this->edges[c]->countword(s,pos+1)
+			if (edges[c] == nullptr) return 0;
+			else return edges[c]->countword(s,pos+1)
 		}
 	}
 	int countprefix(string& p,int pos=0) {
-		if (pos==sz(p)) return this->prefixes;
+		if (pos==sz(p)) return prefixes;
 		else {
 			int c = p[pos] - start;
-			if (this->edges[c] == nullptr) return 0;
-			else return this->edges[c]->countprefix(p,pos+1);
+			if (edges[c] == nullptr) return 0;
+			else return edges[c]->countprefix(p,pos+1);
 		}
 	}
 };
