@@ -1,3 +1,5 @@
+/*find k th smallest elements from nums[l] to nums[r] inclusive*/
+
 int find(vector<int>& nums,int l,int r,int k){
         int p1=l,p2=r-1;
         int t=rand()%(r-l+1)+l;
