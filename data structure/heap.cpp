@@ -49,7 +49,8 @@ void maintain(vector<T>& h, int root) {
 	int min_index;
 	if (h[left] <= h[right]&&h[left]<=h[root])min_index = left;
 	else min_index = right;
-	swap(h[root], h[min_index])maintain<T>(h, min_index);
+	swap(h[root], h[min_index]);
+	maintain<T>(h, min_index);
 	return;
 }
 
