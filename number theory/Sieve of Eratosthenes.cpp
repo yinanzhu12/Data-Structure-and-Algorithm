@@ -7,7 +7,7 @@ int nextprime(vi& sieve, int previous) {
 		if (sieve[next])break;
 		next++;
 	}
-	int nextmultiple = next * 2;
+	int nextmultiple = next*next;
 	while (nextmultiple <= sz(sieve) - 1) {
 		sieve[nextmultiple] = 0;
 		nextmultiple += next;
